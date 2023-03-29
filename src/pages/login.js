@@ -7,10 +7,14 @@ export default function Login() {
   //handles sign in or sign up form
   const [form, setForm] = useState(true);
   const router = useRouter();
+
   const handleLogin = (event) => {
     event.preventDefault();
-    alert("form submitted");
     router.push("/home");
+  };
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -22,8 +26,8 @@ export default function Login() {
           onSubmit={handleLogin}
         >
           <h2 className="p-1">Login</h2>
-          <label htmlFor="username">Username</label>
-          <input id="username" type="text" required />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" required />
           <label htmlFor="password">Password</label>
           <input id="password" type="password" required />
           <button className="btn btn-success mt-2 mb-2">Sign In</button>
