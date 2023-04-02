@@ -1,39 +1,98 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import Layout from ".";
 import { useRouter } from "next/router";
 
 export default function Login() {
-  //handles sign in or sign up form
-  const [form, setForm] = useState(true);
+  //next.js page routing
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
+  //handles toggle for log in or sign up
+  const [form, setForm] = useState(true);
+
+  //sign up form state
+  const [signUpData, setsignUpData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  //log in form state
+  const [logInData, setLogInData] = useState({
+    email: "",
+    password: "",
+  });
+
+  //reset states when form changes between log in and sign up
+  useEffect(() => {
+    setsignUpData({
+      username: "",
+      email: "",
+      password: "",
+    });
+
+    setLogInData({
+      email: "",
+      password: "",
+    });
+  }, [form]);
+
+  //set state to input value
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    form
+      ? setLogInData({ ...logInData, [name]: value })
+      : setsignUpData({ ...signUpData, [name]: value });
+    console.log(signUpData);
+    console.log(logInData);
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    router.push("/home");
-  };
 
-  const handleSignUp = async (event) => {
-    event.preventDefault();
-    console.log(formData);
-    await fetch("/api/newuser", {
+    const signIn = await fetch("/api/signin", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(logInData),
     });
+    console.log(logInData);
+    if (signIn.ok) {
+      router.push("/home");
+
+      //reset log in state
+      setLogInData({
+        email: "",
+        password: "",
+      });
+    } else {
+      alert("Something went wrong!");
+    }
+  };
+
+  const handleSignUp = async (event) => {
+    event.preventDefault();
+
+    const newUser = await fetch("/api/newuser", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(signUpData),
+    });
+
+    if (newUser.ok) {
+      router.push("/home");
+      //reset state once user is created
+      setsignUpData({
+        username: "",
+        email: "",
+        password: "",
+      });
+    } else {
+      window.alert("something went wrong!");
+    }
   };
 
   return (
@@ -46,11 +105,31 @@ export default function Login() {
         >
           <h2 className="p-1">Login</h2>
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" required />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            onChange={handleInputChange}
+            defaultValue={logInData.email}
+            required
+          />
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" required />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onChange={handleInputChange}
+            defaultValue={logInData.password}
+            required
+          />
           <button className="btn btn-success mt-2 mb-2">Sign In</button>
-          <button className="btn btn-primary" onClick={() => setForm(!form)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setForm(!form);
+              document.querySelectorAll("input").forEach((i) => (i.value = ""));
+            }}
+          >
             Sign up instead
           </button>
         </form>
@@ -66,7 +145,7 @@ export default function Login() {
             name="username"
             type="text"
             onChange={handleInputChange}
-            defaultValue={formData.username}
+            defaultValue={signUpData.username}
             required
           />
           <label htmlFor="email">Email</label>
@@ -75,7 +154,7 @@ export default function Login() {
             name="email"
             type="email"
             onChange={handleInputChange}
-            defaultValue={formData.email}
+            defaultValue={signUpData.email}
             required
           />
           <label htmlFor="password">Password</label>
@@ -84,10 +163,16 @@ export default function Login() {
             name="password"
             type="password"
             onChange={handleInputChange}
-            defaultValue={formData.password}
+            defaultValue={signUpData.password}
           />
           <button className="btn btn-success mt-2 mb-2">Create Account</button>
-          <button className="btn btn-primary" onClick={() => setForm(!form)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setForm(!form);
+              document.querySelectorAll("input").forEach((i) => (i.value = ""));
+            }}
+          >
             have an account? Login
           </button>
         </form>

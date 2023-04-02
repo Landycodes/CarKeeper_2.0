@@ -6,12 +6,6 @@ export default async function newUser(req, res) {
     console.log("Connecting to database");
     await connectMongo();
     console.log("Database connected!");
-
-    const newUser = await User.create(req.body);
-    if (!newUser) {
-      res.status(400).json({ ERR: "Could not create account" });
-    }
-    res.json({ newUser });
   } catch (err) {
     console.log(err.message);
     res.status(500).json(err.message);

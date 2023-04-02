@@ -1,8 +1,218 @@
+:root{
+    --blk: rgba(0, 0, 0, 0.696);
+}
+
 html {
-    color: white;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.35);
+    height: 120vh;
+    min-height: 100%;
 }
 
 body {
-       background-image: url('../../public/background.png');
+    background-image: url('../../public/background.png');
+}
 
+nav {
+    background-color: var(--blk);
+    margin: 0;
+    height: 65px;
+    overflow: hidden;
+}
+
+li {
+    cursor: default;
+    font-size: 18px;
+    border-bottom: 3px solid rgba(86, 84, 84, 0.855);
+}
+li:last-child {
+    border: none;
+}
+
+select {
+cursor: pointer;
+}
+
+a{
+    color: white;
+}
+a:hover {
+    text-decoration: none;
+    color: darkgrey;
+}
+.enter, h5, label, ul {
+    background-color: var(--blk);
+    padding: 8px;
+    border-radius: 15px;
+    border: 2px solid darkred;
+}
+
+/* nav menu icon */
+.menu {
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+}
+.logout {
+    cursor: pointer;
+    background-color: transparent;
+}
+.logout:hover {
+    text-shadow: 0px 0px 2px rgb(255, 255, 255);
+    background-color: var(--blk);
+}
+
+/* specs.html button */
+#save-edit {
+    width: 10%;
+    font-size: large;
+}
+
+
+/* specs.html li */
+.spec-list {
+    width: 25%;
+}
+
+.value {
+    display: none;
+    color: white;
+    border-radius: 5px;
+    border: 1px white solid;
+    background-color: var(--blk);
+    caret-color: white;
+}
+
+/* Modal */
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+#modalContent {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 150px;
+}
+
+#close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    margin-top: -22px;
+    margin-right: -15px;
+}
+
+#close:hover, #close:focus {
+  color: rgba(253, 0, 0, .8);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* interval page */
+.interval {
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border-radius: 5px;
+    border: 1px white solid;
+    background-color: var(--blk);
+    caret-color: white;
+    width: 80px;
+    font-weight: bold;
+}
+
+/* status page */
+#axle-img {
+    width: 400px;
+    height: auto;
+}
+#t-bar {
+    width: 225px;
+}
+.slider {
+    position: absolute;
+    height: 40px;
+    width: 80px;
+    background-color: white;
+    border: 2px solid darkred;
+    border-radius: 15px;
+    margin: 0;
+    transition: transform 0.5s ease-in-out;
+}
+.slide-right {
+    transform: translateX(143px);
+}
+.slide-left {
+    transform: translateX(0px);
+}
+#tread {
+    z-index: 1;
+    cursor: pointer;
+}
+#brake {
+    z-index: 1;
+    cursor: pointer;
+}
+/* image set in a div to contain value inputs */
+#status-container {
+    background-image: url('../../public/axle.png');
+    background-position: center;
+    width: 375px;
+    height: 500px;
+}
+#status-container > div {
+    height: 100px;
+    width: 100px;
+}
+.tread-val, .brake-val {
+    background-color: var(--blk);
+    border: 2px solid darkgray;
+    caret-color: white;
+    color: white;
+    display: none;
+}
+#FL-tread, #FR-tread, #BL-tread, #BR-tread {
+    width: 120%;
+}
+
+
+
+@media  (min-width: 260px) and (max-width: 1000px){
+    h3{
+        font-size: 4vw;
+    }
+    #modalContent{
+        width: 80%;
+    }
+    .spec-list{
+        width: 50%;
+    }
+    .value {
+        width: 100%;
+    }
+    #save-edit {
+        width: 25%;
+    }
 }
