@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Auth from "../../utils/auth";
+import { getHome } from "./api";
 
 import Nav from "./components/Nav";
 
 export default function Home() {
-  fetch("/api/signin", {});
+  const [name, setName] = useState("");
+
+  //get data on page render
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+          return false;
+        }
+
+        const data = await getHome(token);
+
+        if (!data.ok) {
+          throw new Error("something went wrong!");
+        }
+
+        const user = await data.json();
+        return user;
+        // console.log(user);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getData().then((data) => {
+      setName(data.username);
+      console.log(data.maintenace);
+    });
+  }, []);
+
   return (
     <div className="d-flex flex-column align-items-center text-white">
       <Nav title={"Maintenance"} />
-      <h5>Welcome</h5>
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
+      <h5>Welcome, {name}!</h5>
       <ul className="list-unstyled p-2">
         <li>
           Oil Change: <span className="span" id="oil"></span>

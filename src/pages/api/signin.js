@@ -1,7 +1,6 @@
 import connectMongo from "../../../utils/connectDB";
 import User from "@/models/User";
-
-import React from "react";
+const { signToken } = require("../../../utils/token");
 
 export default async function signin({ body }, res) {
   try {
@@ -20,7 +19,8 @@ export default async function signin({ body }, res) {
     if (!correctPW) {
       return res.status(400).json({ ERR: "Incorrect password" });
     }
-    res.json({ user });
+    const token = signToken(user);
+    res.json({ token, user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });

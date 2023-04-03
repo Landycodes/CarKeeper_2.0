@@ -1,5 +1,6 @@
 import connectMongo from "../../../utils/connectDB";
 import User from "@/models/User";
+const { signToken } = require("../../../utils/token");
 
 export default async function newUser(req, res) {
   try {
@@ -11,7 +12,8 @@ export default async function newUser(req, res) {
     if (!newUser) {
       res.status(400).json({ ERR: "Could not create account" });
     }
-    res.json({ newUser });
+    const token = signToken(newUser);
+    res.json({ token, newUser });
   } catch (err) {
     console.log(err.message);
     res.status(500).json(err.message);

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import Layout from ".";
 import { useRouter } from "next/router";
+import { signIn, signUp } from "../pages/api/index";
+import Auth from "../../utils/auth";
 
 export default function Login() {
   //next.js page routing
   const router = useRouter();
-
   //handles toggle for log in or sign up
   const [form, setForm] = useState(true);
 
@@ -49,49 +50,49 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    //../pages/api/signin
+    try {
+      //send fetch request and retrieve user token to log in
+      const entryPlz = await signIn(logInData);
+      // console.log(logInData);
+      // console.log({ token, user });
+      if (entryPlz.ok) {
+        const { token } = await entryPlz.json();
+        Auth.login(token);
+        router.push("/home");
 
-    const signIn = await fetch("/api/signin", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(logInData),
-    });
-    console.log(logInData);
-    if (signIn.ok) {
-      router.push("/home");
-
-      //reset log in state
-      setLogInData({
-        email: "",
-        password: "",
-      });
-    } else {
-      alert("Something went wrong!");
+        //reset log in state
+        setLogInData({
+          email: "",
+          password: "",
+        });
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
   const handleSignUp = async (event) => {
     event.preventDefault();
+    try {
+      //../pages/api/newuser
+      const newUser = await signUp(signUpData);
 
-    const newUser = await fetch("/api/newuser", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(signUpData),
-    });
+      if (newUser.ok) {
+        const { token, user } = await newUser.json();
+        console.log({ token, user });
+        Auth.login(token);
+        router.push("/home");
 
-    if (newUser.ok) {
-      router.push("/home");
-      //reset state once user is created
-      setsignUpData({
-        username: "",
-        email: "",
-        password: "",
-      });
-    } else {
-      window.alert("something went wrong!");
+        //reset state once user is created
+        setsignUpData({
+          username: "",
+          email: "",
+          password: "",
+        });
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
