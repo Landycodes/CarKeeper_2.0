@@ -6,16 +6,14 @@ const style = {
   },
 };
 
-export default function Modal({ prompt, menu }) {
+export default function Modal({ prompt, menu, toggleMenu }) {
+  function changeMenu() {
+    toggleMenu(!menu);
+  }
   return (
-    <div id="modal" style={{ display: menu }}>
+    <div id="modal">
       <div id="modalContent">
-        <span
-          id="close"
-          onClick={() => {
-            console.log("close");
-          }}
-        >
+        <span id="close" onClick={() => changeMenu()}>
           X
         </span>
         <h2 className="text-center font-weight-bold">MENU</h2>

@@ -4,7 +4,11 @@ import Auth from "../../../utils/auth";
 import Modal from "./Menu";
 
 export default function Nav({ title }) {
-  const [menu, setMenu] = useState("none");
+  const [menu, setMenu] = useState(false);
+
+  function toggleMenu(menVal) {
+    setMenu(menVal);
+  }
 
   if (title === "Welcome to CarKeeper!") {
     return (
@@ -35,7 +39,11 @@ export default function Nav({ title }) {
             }}
           />
         </nav>
-        <Modal prompt={title} menu={menu} />
+        {menu ? (
+          <Modal prompt={title} menu={menu} toggleMenu={toggleMenu} />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
