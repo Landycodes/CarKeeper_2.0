@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Nav from "./components/Nav";
-import Layout from ".";
+import Nav from "../components/Nav";
+import Layout from "..";
 import { useRouter } from "next/router";
-import { signIn, signUp } from "../pages/api/index";
-import Auth from "../../utils/auth";
+import { signIn, signUp } from "../api/index";
+import Auth from "../../../utils/auth";
 
 export default function Login() {
   //next.js page routing
@@ -44,8 +44,8 @@ export default function Login() {
     form
       ? setLogInData({ ...logInData, [name]: value })
       : setsignUpData({ ...signUpData, [name]: value });
-    console.log(signUpData);
-    console.log(logInData);
+    // console.log(signUpData);
+    // console.log(logInData);
   };
 
   const handleLogin = async (event) => {
@@ -59,7 +59,7 @@ export default function Login() {
       if (entryPlz.ok) {
         const { token } = await entryPlz.json();
         Auth.login(token);
-        router.push("/home");
+        router.push("/Home");
 
         //reset log in state
         setLogInData({
@@ -80,7 +80,7 @@ export default function Login() {
 
       if (newUser.ok) {
         const { token, user } = await newUser.json();
-        console.log({ token, user });
+        // console.log({ token, user });
         Auth.login(token);
         router.push("/home");
 

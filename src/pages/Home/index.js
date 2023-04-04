@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Auth from "../../utils/auth";
-import { getHome } from "./api";
+import Auth from "../../../utils/auth";
+import { getHome } from "../api";
 
-import Nav from "./components/Nav";
+import Nav from "../components/Nav";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -32,7 +32,7 @@ export default function Home() {
     };
     getData().then((data) => {
       setName(data.username);
-      console.log(data.maintenace);
+      console.log(`Maintenance data: ${data.maintenace}`);
     });
   }, []);
 

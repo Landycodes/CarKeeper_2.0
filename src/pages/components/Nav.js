@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Auth from "../../../utils/auth";
-import { useRouter } from "next/router";
+import Modal from "./Menu";
 
 export default function Nav({ title }) {
-  const router = useRouter();
+  const [menu, setMenu] = useState("none");
+
   if (title === "Welcome to CarKeeper!") {
     return (
       <div className="w-100 text-light mb-3 text-center">
@@ -27,8 +28,14 @@ export default function Nav({ title }) {
             alt="menu"
             width={100}
             height={100}
+            onClick={() => {
+              console.log("click");
+              console.log(menu);
+              setMenu("block");
+            }}
           />
         </nav>
+        <Modal prompt={title} menu={menu} />
       </div>
     );
   }
