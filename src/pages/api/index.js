@@ -19,7 +19,7 @@ export const signUp = (signUpData) => {
 };
 
 export const getHome = (token) => {
-  return fetch("/api/maint", {
+  return fetch("/api/me", {
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,

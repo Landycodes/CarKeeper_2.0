@@ -40,7 +40,7 @@ export default function Home() {
     <div className="d-flex flex-column align-items-center text-white">
       <Nav title={"Maintenance"} />
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      <h5>Welcome, {name}!</h5>
+      {name ? <h5>Welcome, {name}!</h5> : ""}
       <ul className="list-unstyled p-2">
         <li>
           Oil Change: <span className="span" id="oil"></span>
@@ -64,7 +64,7 @@ export default function Home() {
       <form id="maint-input" className="d-flex flex-column align-items-center">
         <label
           htmlFor="select"
-          className="text-center font-weight-bold p-1 w-100"
+          className="text-center font-weight-bold p-1 mb-2 w-100"
         >
           Performed
         </label>
@@ -79,7 +79,7 @@ export default function Home() {
         <br></br>
         <label
           htmlFor="miles"
-          className="text-center font-weight-bold p-1 w-100"
+          className="text-center font-weight-bold p-1 mb-2 w-100"
         >
           Current Mileage
         </label>

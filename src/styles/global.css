@@ -22,22 +22,24 @@ nav {
 li {
     cursor: default;
     font-size: 18px;
-    border-bottom: 3px solid rgba(86, 84, 84, 0.855);
 }
 li:last-child {
     border: none;
+}
+
+.underline {
+    border-bottom: 3px solid rgba(86, 84, 84, 0.855);
 }
 
 select {
 cursor: pointer;
 }
 
-a{
+.link {
     color: white;
 }
-a:hover {
-    text-decoration: none;
-    color: darkgrey;
+.link:hover {
+    color: darkgray;
 }
 .enter, h5, label, ul {
     background-color: var(--blk);
@@ -141,6 +143,7 @@ input::-webkit-inner-spin-button {
     caret-color: white;
     width: 80px;
     font-weight: bold;
+    margin: 0 5px 0 5px;
 }
 
 /* status page */

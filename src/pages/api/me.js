@@ -2,7 +2,7 @@ import connectMongo from "../../../utils/connectDB";
 import User from "@/models/User";
 import Auth from "../../../utils/token";
 
-export default async function maint(req, res) {
+export default async function Me(req, res) {
   try {
     console.log("Connecting to database");
     await connectMongo();

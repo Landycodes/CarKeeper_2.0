@@ -1,7 +1,17 @@
 import Head from "next/head";
 import Login from "./Login";
+import Auth from "../../utils/auth";
+import { useEffect, useState } from "react";
 
 export default function Layout({ children }) {
+  const [logIn, setLogIn] = useState(false);
+
+  useEffect(() => {
+    if (Auth.loggedIn() !== false) {
+      setLogIn(true);
+    }
+  }, []);
+
   return (
     <>
       <Head>
