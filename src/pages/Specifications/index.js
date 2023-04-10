@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "../components/Nav";
+import Layout from "..";
 
 export default function Specs() {
   const spec = [
@@ -39,7 +40,7 @@ export default function Specs() {
     );
   };
   return (
-    <div>
+    <Layout>
       <Nav title="Specifications" />
       <div class="d-flex flex-column align-items-center text-white">
         <ul class="list-unstyled p-2 spec-list">
@@ -83,6 +84,6 @@ export default function Specs() {
           Edit
         </button>
       </div>
-    </div>
+    </Layout>
   );
 }

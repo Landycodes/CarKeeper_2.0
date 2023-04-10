@@ -44,7 +44,7 @@ export default function Login() {
     form
       ? setLogInData({ ...logInData, [name]: value })
       : setsignUpData({ ...signUpData, [name]: value });
-    // console.log(signUpData);
+    console.log(signUpData);
     // console.log(logInData);
   };
 
@@ -74,6 +74,7 @@ export default function Login() {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
+    console.log(signUpData);
     try {
       //../pages/api/newuser
       const newUser = await signUp(signUpData);
@@ -82,7 +83,7 @@ export default function Login() {
         const { token, user } = await newUser.json();
         // console.log({ token, user });
         Auth.login(token);
-        router.push("/home");
+        router.push("/Home");
 
         //reset state once user is created
         setsignUpData({
@@ -101,7 +102,7 @@ export default function Login() {
       <Nav title={"Welcome to CarKeeper!"} />
       {form ? (
         <form
-          className="bg-dark rounded p-3 w-25 d-flex flex-column"
+          className="bg-dark rounded p-3 w-25 d-flex flex-column text-white"
           onSubmit={handleLogin}
         >
           <h2 className="p-1">Login</h2>

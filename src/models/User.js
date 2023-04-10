@@ -1,4 +1,5 @@
 const { Schema, model, default: mongoose } = require("mongoose");
+const intervalSchema = require("./interval");
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
@@ -17,7 +18,10 @@ const userSchema = new Schema({
     required: true,
   },
   maintenace: [],
-  intervals: [],
+  intervals: {
+    type: intervalSchema,
+    default: () => ({}),
+  },
   specifications: [],
   status: [],
 });
@@ -39,10 +43,11 @@ userSchema.methods.isCorrectPassword = async function (password) {
 
 //logic to prevent multiple models
 let User;
+
 try {
   User = mongoose.model("User");
-} catch (err) {
-  User = model("User", userSchema);
+} catch {
+  User = mongoose.model("User", userSchema);
 }
 
 export default User;

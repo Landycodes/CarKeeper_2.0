@@ -4,11 +4,10 @@ import Auth from "../../utils/auth";
 import { useEffect, useState } from "react";
 
 export default function Layout({ children }) {
-  const [logIn, setLogIn] = useState(false);
-
   useEffect(() => {
-    if (Auth.loggedIn() !== false) {
-      setLogIn(true);
+    //check log in status and send to log in page if session expired
+    if (Auth.loggedIn() === false && window.location.pathname !== "/") {
+      Auth.logout();
     }
   }, []);
 
@@ -20,7 +19,7 @@ export default function Layout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="d-flex flex-column align-items-center text-light w-100">
+      <main className="d-flex flex-column align-items-center text-white w-100">
         {children || <Login />}
       </main>
     </>

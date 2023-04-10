@@ -43,9 +43,17 @@ cursor: pointer;
 }
 .enter, h5, label, ul {
     background-color: var(--blk);
-    padding: 8px;
-    border-radius: 15px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 10px;
     border: 2px solid darkred;
+    color: white;
+}
+.enter {
+    color: darkgray;
+}
+.enter:hover {
+    color: white;
+    border-color: darkgray;
 }
 
 /* nav menu icon */

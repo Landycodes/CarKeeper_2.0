@@ -1,9 +1,10 @@
 import React from "react";
 import Nav from "../components/Nav";
+import Layout from "..";
 
 export default function Status() {
   return (
-    <div>
+    <Layout>
       <Nav title="Part Status" />
       <div class="w-100 d-flex flex-column justify-content-center align-items-center">
         <label
@@ -115,6 +116,6 @@ export default function Status() {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

@@ -1,4 +1,5 @@
 import decode from "jwt-decode";
+import { useRouter } from "next/router";
 
 // handle generated token
 class AuthService {

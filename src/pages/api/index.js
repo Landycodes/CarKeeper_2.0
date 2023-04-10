@@ -18,7 +18,7 @@ export const signUp = (signUpData) => {
   });
 };
 
-export const getHome = (token) => {
+export const getMe = (token) => {
   return fetch("/api/me", {
     headers: {
       "Content-Type": "application/json",
@@ -26,3 +26,14 @@ export const getHome = (token) => {
     },
   });
 };
+
+export const saveInterval = (token, interval) => {
+  return fetch("/api/saveinterval", {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(interval),
+  });
+}
