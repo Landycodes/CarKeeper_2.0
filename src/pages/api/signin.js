@@ -8,6 +8,7 @@ export default async function signin({ body }, res) {
     await connectMongo();
     console.log("Database connected!");
 
+    //find user by email
     const user = await User.findOne({ email: body.email });
     if (!user) {
       return res
@@ -15,10 +16,13 @@ export default async function signin({ body }, res) {
         .json({ ERR: "could not find an account with that email" });
     }
 
+    //validate password
     const correctPW = await user.isCorrectPassword(body.password);
     if (!correctPW) {
       return res.status(400).json({ ERR: "Incorrect password" });
     }
+
+    //assign token to user
     const token = signToken(user);
     res.json({ token, user });
   } catch (err) {

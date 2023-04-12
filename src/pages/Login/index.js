@@ -44,7 +44,7 @@ export default function Login() {
     form
       ? setLogInData({ ...logInData, [name]: value })
       : setsignUpData({ ...signUpData, [name]: value });
-    console.log(signUpData);
+    // console.log(signUpData);
     // console.log(logInData);
   };
 
@@ -106,24 +106,30 @@ export default function Login() {
           onSubmit={handleLogin}
         >
           <h2 className="p-1">Login</h2>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            onChange={handleInputChange}
-            defaultValue={logInData.email}
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={handleInputChange}
-            defaultValue={logInData.password}
-            required
-          />
+          <label htmlFor="email">
+            Email
+            <input
+              id="email"
+              className="login"
+              name="email"
+              type="email"
+              onChange={handleInputChange}
+              defaultValue={logInData.email}
+              required
+            />
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              className="login"
+              name="password"
+              type="password"
+              onChange={handleInputChange}
+              defaultValue={logInData.password}
+              required
+            />
+          </label>
           <button className="btn btn-success mt-2 mb-2">Sign In</button>
           <button
             className="btn btn-primary"
@@ -141,32 +147,41 @@ export default function Login() {
           onSubmit={handleSignUp}
         >
           <h2 className="p-1">Sign Up</h2>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            onChange={handleInputChange}
-            defaultValue={signUpData.username}
-            required
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            onChange={handleInputChange}
-            defaultValue={signUpData.email}
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={handleInputChange}
-            defaultValue={signUpData.password}
-          />
+          <label htmlFor="username">
+            Username
+            <input
+              id="username"
+              className="login"
+              name="username"
+              type="text"
+              onChange={handleInputChange}
+              defaultValue={signUpData.username}
+              required
+            />
+          </label>
+          <label htmlFor="email">
+            Email
+            <input
+              id="email"
+              className="login"
+              name="email"
+              type="email"
+              onChange={handleInputChange}
+              defaultValue={signUpData.email}
+              required
+            />
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              className="login"
+              name="password"
+              type="password"
+              onChange={handleInputChange}
+              defaultValue={signUpData.password}
+            />
+          </label>
           <button className="btn btn-success mt-2 mb-2">Create Account</button>
           <button
             className="btn btn-primary"

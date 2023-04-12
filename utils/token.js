@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 // set token secret and expiration date
-const secret = "mysecretsshhhhh";
+const secret = "7/11 was an inside job";
 const expiration = "2h";
 
 //handle token generation

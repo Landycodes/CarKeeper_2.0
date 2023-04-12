@@ -54,10 +54,12 @@ export default function Modal({ prompt, menu, toggleMenu }) {
         <span id="close" onClick={() => changeMenu()}>
           X
         </span>
-        <h2 className="text-center font-weight-bold">MENU</h2>
-        <ul className="text-center font-weight-bold list-unstyled">
-          {menuItems.map((item) => Links(item))}
-        </ul>
+        <div className="d-flex flex-column align-items-center">
+          <h2 className="text-center font-weight-bold">MENU</h2>
+          <ul className="d-flex flex-column font-weight-bold list-unstyled p-0 w-75">
+            {menuItems.map((item) => Links(item))}
+          </ul>
+        </div>
       </div>
     </div>
   );

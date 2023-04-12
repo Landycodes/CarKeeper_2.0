@@ -33,7 +33,7 @@ export default function Nav({ title }) {
             width={100}
             height={100}
             onClick={() => {
-              setMenu("block");
+              setMenu(!menu);
             }}
           />
         </nav>

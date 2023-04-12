@@ -1,5 +1,6 @@
-const { Schema, model, default: mongoose } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const intervalSchema = require("./interval");
+const maintSchema = require("./maint");
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
@@ -11,13 +12,16 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     match: [/.+@.+\..+/, "Must use a valid email address"],
   },
   password: {
     type: String,
     required: true,
   },
-  maintenace: [],
+  maintenance: {
+    type: maintSchema,
+  },
   intervals: {
     type: intervalSchema,
     default: () => ({}),
@@ -45,9 +49,9 @@ userSchema.methods.isCorrectPassword = async function (password) {
 let User;
 
 try {
-  User = mongoose.model("User");
+  User = model("User");
 } catch {
-  User = mongoose.model("User", userSchema);
+  User = model("User", userSchema);
 }
 
 export default User;

@@ -27,10 +27,4 @@ const intervalSchema = new Schema({
   },
 });
 
-// const intervalObject = new Schema({
-//   intervals: {
-//     type: intervalSchema,
-//   },
-// });
-
 module.exports = intervalSchema;

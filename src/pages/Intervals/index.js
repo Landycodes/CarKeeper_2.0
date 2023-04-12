@@ -41,23 +41,14 @@ export default function Interval() {
       }
     };
     getData().then((data) => {
-      //default intervals if none have been set 'wont be saved unless button clicked'
-      // if (!data.intervals) {
-      //   setIntervals({
-      //     oilInt: 4000,
-      //     coolInt: 16000,
-      //     psInt: 30000,
-      //     brakeInt: 30000,
-      //     tiroInt: 7000,
-      //     transInt: 45000,
-      //   });
-      // } else {
+      //get interval values from user DB
       setIntervals(data.intervals);
-      // }
       // console.log(data.intervals);
     });
   }, []);
 
+  //name is the service interval is being applied to
+  // id and value are a key value pairs for intervals state
   const maintItems = [
     {
       name: "Oil change",

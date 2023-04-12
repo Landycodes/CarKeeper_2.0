@@ -35,6 +35,21 @@ select {
 cursor: pointer;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* login input */
+.login {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid darkgray;
+    caret-color: white;
+    color: white;
+}
+
 .link {
     color: white;
 }
@@ -71,14 +86,14 @@ cursor: pointer;
     background-color: var(--blk);
 }
 
-/* specs.html button */
+/* specs button */
 #save-edit {
     width: 10%;
     font-size: large;
 }
 
 
-/* specs.html li */
+/* specs li */
 .spec-list {
     width: 25%;
 }
@@ -132,12 +147,6 @@ cursor: pointer;
   color: rgba(253, 0, 0, .8);
   text-decoration: none;
   cursor: pointer;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 /* interval page */

@@ -36,4 +36,15 @@ export const saveInterval = (token, interval) => {
     },
     body: JSON.stringify(interval),
   });
-}
+};
+
+export const saveMaint = (token, maintVal) => {
+  return fetch("/api/savemaint", {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(maintVal),
+  });
+};
