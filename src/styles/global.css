@@ -41,6 +41,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.loadIcon {
+    margin-top: 20px;
+    border-radius: 100px;
+    box-shadow: 1px 4px 10px black;
+}
+
 /* login input */
 .login {
     background-color: transparent;
@@ -48,6 +54,11 @@ input::-webkit-inner-spin-button {
     border: 2px solid darkgray;
     caret-color: white;
     color: white;
+}
+.entryForm {
+    background-color: rgba(28, 28, 28, 0.936);
+    border: 5px solid var(--blk);
+    width: 250px;
 }
 
 .link {

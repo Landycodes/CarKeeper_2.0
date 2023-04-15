@@ -38,8 +38,8 @@ export const saveInterval = (token, interval) => {
   });
 };
 
-export const saveMaint = (token, maintVal) => {
-  return fetch("/api/savemaint", {
+export const saveMiles = (token, maintVal) => {
+  return fetch("/api/savemiles", {
     method: "PUT",
     headers: {
       "content-type": "application/json",

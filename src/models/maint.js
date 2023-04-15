@@ -1,12 +1,12 @@
 const { Schema } = require("mongoose");
 
 const maintSchema = new Schema({
-  oilVal: String,
-  coolVal: String,
-  psVal: String,
-  brakeVal: String,
-  tiroVal: String,
-  transVal: String,
+  oilVal: Number,
+  coolVal: Number,
+  psVal: Number,
+  brakeVal: Number,
+  tiroVal: Number,
+  transVal: Number,
 });
 
 module.exports = maintSchema;

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import loadIcon from "../../../public/speedometer.gif";
 import Nav from "../components/Nav";
 import Layout from "..";
 import { useRouter } from "next/router";
@@ -10,6 +12,8 @@ export default function Login() {
   const router = useRouter();
   //handles toggle for log in or sign up
   const [form, setForm] = useState(true);
+
+  const [loading, isLoading] = useState(false);
 
   //sign up form state
   const [signUpData, setsignUpData] = useState({
@@ -59,6 +63,7 @@ export default function Login() {
       if (entryPlz.ok) {
         const { token } = await entryPlz.json();
         Auth.login(token);
+        isLoading(true);
         router.push("/Home");
 
         //reset log in state
@@ -83,6 +88,7 @@ export default function Login() {
         const { token, user } = await newUser.json();
         // console.log({ token, user });
         Auth.login(token);
+        isLoading(true);
         router.push("/Home");
 
         //reset state once user is created
@@ -101,49 +107,69 @@ export default function Login() {
     <Layout>
       <Nav title={"Welcome to CarKeeper!"} />
       {form ? (
-        <form
-          className="bg-dark rounded p-3 w-25 d-flex flex-column text-white"
-          onSubmit={handleLogin}
-        >
-          <h2 className="p-1">Login</h2>
-          <label htmlFor="email">
-            Email
-            <input
-              id="email"
-              className="login"
-              name="email"
-              type="email"
-              onChange={handleInputChange}
-              defaultValue={logInData.email}
-              required
-            />
-          </label>
-          <label htmlFor="password">
-            Password
-            <input
-              id="password"
-              className="login"
-              name="password"
-              type="password"
-              onChange={handleInputChange}
-              defaultValue={logInData.password}
-              required
-            />
-          </label>
-          <button className="btn btn-success mt-2 mb-2">Sign In</button>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setForm(!form);
-              document.querySelectorAll("input").forEach((i) => (i.value = ""));
-            }}
+        loading ? (
+          <Image
+            src={loadIcon}
+            width={200}
+            height={200}
+            alt="Loading"
+            className="loadIcon"
+          />
+        ) : (
+          <form
+            className="entryForm rounded p-3 d-flex flex-column text-white"
+            onSubmit={handleLogin}
           >
-            Sign up instead
-          </button>
-        </form>
+            <h2 className="p-1">Login</h2>
+            <label htmlFor="email">
+              Email
+              <input
+                id="email"
+                className="login"
+                name="email"
+                type="email"
+                onChange={handleInputChange}
+                defaultValue={logInData.email}
+                required
+              />
+            </label>
+            <label htmlFor="password">
+              Password
+              <input
+                id="password"
+                className="login"
+                name="password"
+                type="password"
+                onChange={handleInputChange}
+                defaultValue={logInData.password}
+                required
+              />
+            </label>
+            <button className="btn btn-success mt-2 mb-2">Sign In</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setForm(!form);
+                document
+                  .querySelectorAll("input")
+                  .forEach((i) => (i.value = ""));
+              }}
+            >
+              Sign up instead
+            </button>
+          </form>
+        )
+      ) : loading ? (
+        <Image
+          src={loadIcon}
+          width={200}
+          height={200}
+          alt="Loading"
+          className="loadIcon"
+        />
       ) : (
         <form
-          className="bg-dark rounded p-3 w-25 d-flex flex-column"
+          className="entryForm rounded p-3 w-25 d-flex flex-column"
           onSubmit={handleSignUp}
         >
           <h2 className="p-1">Sign Up</h2>

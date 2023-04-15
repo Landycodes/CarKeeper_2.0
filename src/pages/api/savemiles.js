@@ -17,7 +17,7 @@ export default async function SaveInt(req, res) {
     //find user by _id associated with token
     const updateUser = await User.findOneAndUpdate(
       { _id: foundUser._id },
-      { $set: { maintenace: req.body } }
+      { $set: { maintenance: req.body } }
     );
 
     if (!updateUser) {
@@ -26,7 +26,7 @@ export default async function SaveInt(req, res) {
         .json({ message: "Cannot find a user with this id!" });
     }
 
-    res.json(updateUser.maintenace);
+    res.json(updateUser.maintenance);
   } catch (err) {
     console.log(err.message);
     res.status(500).json(err.message);
