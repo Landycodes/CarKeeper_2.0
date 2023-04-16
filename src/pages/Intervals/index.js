@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import loadIcon from "../../../public/speedometer.gif";
 import Nav from "../components/Nav";
 import Auth from "../../../utils/auth";
-import { getMe, saveInterval } from "../api";
 import Layout from "..";
+
+import { saveInterval } from "../api";
+import { getData } from "../../../utils/getData";
 
 export default function Interval() {
   //show or hide button based on input change
   const [button, setButton] = useState(false);
+
+  const [loading, isLoading] = useState(true);
 
   //create interval state
   const [intervals, setIntervals] = useState({
@@ -19,31 +25,10 @@ export default function Interval() {
   });
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        if (!token) {
-          return false;
-        }
-
-        const data = await getMe(token);
-
-        if (!data.ok) {
-          throw new Error("something went wrong!");
-        }
-
-        const user = await data.json();
-        return user;
-        // console.log(user);
-      } catch (err) {
-        console.error(err);
-      }
-    };
     getData().then((data) => {
       //get interval values from user DB
       setIntervals(data.intervals);
-      // console.log(data.intervals);
+      isLoading(false);
     });
   }, []);
 
@@ -106,42 +91,52 @@ export default function Interval() {
   return (
     <Layout>
       <Nav title="Set Intervals" />
-      <div className="d-flex flex-column align-items-center text-white">
-        <ul className="list-unstyled p-2">
-          {maintItems.map((items) => setList(items))}
-        </ul>
-        <button
-          type="button"
-          id="save-int"
-          className={`enter ${button ? "" : "d-none"}`}
-          onClick={async () => {
-            try {
-              const token = Auth.loggedIn() ? Auth.getToken() : null;
+      {loading ? (
+        <Image
+          src={loadIcon}
+          width={200}
+          height={200}
+          alt="Loading"
+          className="loadIcon"
+        />
+      ) : (
+        <div className="d-flex flex-column align-items-center text-white">
+          <ul className="list-unstyled p-2">
+            {maintItems.map((items) => setList(items))}
+          </ul>
+          <button
+            type="button"
+            id="save-int"
+            className={`enter ${button ? "" : "d-none"}`}
+            onClick={async () => {
+              try {
+                const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-              if (!token) {
-                return false;
+                if (!token) {
+                  return false;
+                }
+
+                const data = await saveInterval(token, intervals);
+
+                if (!data.ok) {
+                  console.log("Couldn't save intervals!");
+                }
+
+                const updatedUser = await data.json();
+                // console.log(updatedUser);
+                setButton(false);
+                console.log("intervals have been updated!");
+
+                return updatedUser;
+              } catch (err) {
+                console.error(err);
               }
-
-              const data = await saveInterval(token, intervals);
-
-              if (!data.ok) {
-                console.log("Couldn't save intervals!");
-              }
-
-              const updatedUser = await data.json();
-              // console.log(updatedUser);
-              setButton(false);
-              console.log("intervals have been updated!");
-
-              return updatedUser;
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          Save
-        </button>
-      </div>
+            }}
+          >
+            Save
+          </button>
+        </div>
+      )}
     </Layout>
   );
 }

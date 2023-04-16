@@ -48,3 +48,14 @@ export const saveMiles = (token, maintVal) => {
     body: JSON.stringify(maintVal),
   });
 };
+
+export const saveSpecifications = (token, specs) => {
+  return fetch("/api/savespecifications", {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(specs),
+  });
+};

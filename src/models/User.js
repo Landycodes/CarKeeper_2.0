@@ -1,7 +1,13 @@
-const { Schema, model } = require("mongoose");
-const intervalSchema = require("./interval");
-const maintSchema = require("./maint");
-const bcrypt = require("bcrypt");
+import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
+import intervalSchema from "./interval";
+import maintSchema from "./maint";
+import specSchema from "./spec";
+
+// const { Schema, model } = require("mongoose");
+// const intervalSchema = require("./interval");
+// const maintSchema = require("./maint");
+// const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
   username: {
@@ -26,7 +32,9 @@ const userSchema = new Schema({
     type: intervalSchema,
     default: () => ({}),
   },
-  specifications: [],
+  specifications: {
+    type: specSchema,
+  },
   status: [],
 });
 

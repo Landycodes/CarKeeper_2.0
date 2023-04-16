@@ -169,7 +169,7 @@ export default function Login() {
         />
       ) : (
         <form
-          className="entryForm rounded p-3 w-25 d-flex flex-column"
+          className="entryForm rounded p-3 d-flex flex-column"
           onSubmit={handleSignUp}
         >
           <h2 className="p-1">Sign Up</h2>

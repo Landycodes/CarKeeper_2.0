@@ -110,7 +110,7 @@ input::-webkit-inner-spin-button {
 }
 
 .value {
-    display: none;
+    /* display: none; */
     color: white;
     border-radius: 5px;
     border: 1px white solid;
@@ -230,7 +230,16 @@ input::-webkit-inner-spin-button {
 
 
 
-@media  (min-width: 260px) and (max-width: 1000px){
+@media  (min-width: 260px) and (max-width: 400px){
+    .logout {
+        font-size: small;
+        width: 75px;
+        height: auto;
+    }
+    .menu {
+        width: 70px;
+        height: auto;
+    }
     h3{
         font-size: 4vw;
     }

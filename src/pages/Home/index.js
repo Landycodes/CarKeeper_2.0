@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import loadIcon from "../../../public/speedometer.gif";
 import Auth from "../../../utils/auth";
-import { getMe, saveMiles } from "../api";
+import { saveMiles } from "../api";
+import { getData } from "../../../utils/getData";
 
 import Nav from "../components/Nav";
 import Layout from "..";
@@ -34,26 +35,6 @@ export default function Home() {
 
   //get user data on page render
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        if (!token) {
-          return false;
-        }
-
-        const data = await getMe(token);
-
-        if (!data.ok) {
-          throw new Error("something went wrong!");
-        }
-
-        const user = await data.json();
-        return user;
-      } catch (err) {
-        console.error(err);
-      }
-    };
     getData().then((data) => {
       setName(data.username);
 
@@ -197,7 +178,7 @@ export default function Home() {
               {hasSetMiles(mileVal) ? (
                 maintItems.map((items) => setList(items))
               ) : (
-                <h6>Please enter service</h6>
+                <h6 className="text-center">Please enter service</h6>
               )}
             </ul>
             <form
