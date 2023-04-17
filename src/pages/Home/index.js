@@ -164,16 +164,19 @@ export default function Home() {
       <div className="d-flex flex-column align-items-center text-white w-100">
         <Nav title={"Maintenance"} />
         {loading ? (
-          <Image
-            src={loadIcon}
-            width={200}
-            height={200}
-            alt="Loading"
-            className="loadIcon"
-          />
+          <div>
+            <Image
+              src={loadIcon}
+              width={200}
+              height={200}
+              alt="Loading"
+              className="loadIcon"
+            />
+            <h1 className="text-center">Loading...</h1>
+          </div>
         ) : (
           <div>
-            {name ? <h5>Welcome, {name}!</h5> : ""}
+            {name ? <h5 className="text-center">Welcome, {name}!</h5> : ""}
             <ul className="list-unstyled p-2">
               {hasSetMiles(mileVal) ? (
                 maintItems.map((items) => setList(items))

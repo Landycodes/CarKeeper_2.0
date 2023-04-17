@@ -54,6 +54,8 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    isLoading(true);
+
     //../pages/api/signin
     try {
       //send fetch request and retrieve user token to log in
@@ -63,7 +65,6 @@ export default function Login() {
       if (entryPlz.ok) {
         const { token } = await entryPlz.json();
         Auth.login(token);
-        isLoading(true);
         router.push("/Home");
 
         //reset log in state
@@ -74,12 +75,14 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
+      isLoading(false);
     }
   };
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    console.log(signUpData);
+    // console.log(signUpData);
+    isLoading(true);
     try {
       //../pages/api/newuser
       const newUser = await signUp(signUpData);
@@ -88,7 +91,6 @@ export default function Login() {
         const { token, user } = await newUser.json();
         // console.log({ token, user });
         Auth.login(token);
-        isLoading(true);
         router.push("/Home");
 
         //reset state once user is created
@@ -100,6 +102,7 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
+      isLoading(false);
     }
   };
 
@@ -108,13 +111,16 @@ export default function Login() {
       <Nav title={"Welcome to CarKeeper!"} />
       {form ? (
         loading ? (
-          <Image
-            src={loadIcon}
-            width={200}
-            height={200}
-            alt="Loading"
-            className="loadIcon"
-          />
+          <div>
+            <Image
+              src={loadIcon}
+              width={200}
+              height={200}
+              alt="Loading"
+              className="loadIcon"
+            />
+            <h1 className="text-center">Loading...</h1>
+          </div>
         ) : (
           <form
             className="entryForm rounded p-3 d-flex flex-column text-white"
@@ -160,13 +166,16 @@ export default function Login() {
           </form>
         )
       ) : loading ? (
-        <Image
-          src={loadIcon}
-          width={200}
-          height={200}
-          alt="Loading"
-          className="loadIcon"
-        />
+        <div>
+          <Image
+            src={loadIcon}
+            width={200}
+            height={200}
+            alt="Loading"
+            className="loadIcon"
+          />
+          <h1 className="text-center">Welcome!</h1>
+        </div>
       ) : (
         <form
           className="entryForm rounded p-3 d-flex flex-column"

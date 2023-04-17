@@ -92,13 +92,16 @@ export default function Interval() {
     <Layout>
       <Nav title="Set Intervals" />
       {loading ? (
-        <Image
-          src={loadIcon}
-          width={200}
-          height={200}
-          alt="Loading"
-          className="loadIcon"
-        />
+        <div>
+          <Image
+            src={loadIcon}
+            width={200}
+            height={200}
+            alt="Loading"
+            className="loadIcon"
+          />
+          <h1 className="text-center">Loading...</h1>
+        </div>
       ) : (
         <div className="d-flex flex-column align-items-center text-white">
           <ul className="list-unstyled p-2">

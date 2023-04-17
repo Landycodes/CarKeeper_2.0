@@ -106,7 +106,7 @@ input::-webkit-inner-spin-button {
 
 /* specs li */
 .spec-list {
-    width: 25%;
+    min-width: 250px;
 }
 
 .value {
@@ -247,9 +247,7 @@ input::-webkit-inner-spin-button {
     #modalContent{
         width: 80%;
     }
-    .spec-list{
-        width: 50%;
-    }
+
     .value {
         width: 100%;
     }
