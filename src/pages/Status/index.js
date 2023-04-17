@@ -3,6 +3,7 @@ import Nav from "../components/Nav";
 import Layout from "..";
 
 export default function Status() {
+  //true = brake false = tread
   const [toggle, setToggle] = useState(true);
 
   return (
@@ -42,9 +43,9 @@ export default function Status() {
               <label>
                 <h1 className="p-2">FL</h1>
               </label>
-              <h5>
+              <h5 className="m-0 mt-2">
                 <span id="FL"></span>
-                <br />
+                <br></br>
                 <small className="measurement"></small>
               </h5>
               <div id="FL-tread" className="d-flex">
@@ -62,7 +63,7 @@ export default function Status() {
               <label>
                 <h1 className="p-2">FR</h1>
               </label>
-              <h5>
+              <h5 className="m-0 mt-2">
                 <span id="FR"></span>
                 <br />
                 <small className="measurement"></small>
@@ -101,7 +102,7 @@ export default function Status() {
                 <br />
                 <small className="measurement"></small>
               </h5>
-              <label className="mt-1">
+              <label>
                 <h1 className="p-2">BL</h1>
               </label>
             </div>
@@ -115,13 +116,13 @@ export default function Status() {
                 <input className="p-1 mb-1 w-25 rounded tread-val" />
                 <input className="p-1 mb-1 w-25 rounded tread-val" />
                 <input className="p-1 mb-1 w-25 rounded tread-val" />
-              </div>{" "}
+              </div>
               <h5>
                 <span id="BR"></span>
                 <br />
                 <small className="measurement"></small>
               </h5>
-              <label className="mt-1">
+              <label>
                 <h1 className="p-2">BR</h1>
               </label>
             </div>
