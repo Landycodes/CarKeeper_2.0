@@ -121,7 +121,7 @@ export default function Login() {
             onSubmit={handleLogin}
           >
             <h2 className="p-1">Login</h2>
-            <label htmlFor="email">
+            <label htmlFor="email" className="d-flex flex-column">
               Email
               <input
                 id="email"
@@ -133,7 +133,7 @@ export default function Login() {
                 required
               />
             </label>
-            <label htmlFor="password">
+            <label htmlFor="password" className="d-flex flex-column">
               Password
               <input
                 id="password"
@@ -173,7 +173,7 @@ export default function Login() {
           onSubmit={handleSignUp}
         >
           <h2 className="p-1">Sign Up</h2>
-          <label htmlFor="username">
+          <label htmlFor="username" className="d-flex flex-column">
             Username
             <input
               id="username"
@@ -185,7 +185,7 @@ export default function Login() {
               required
             />
           </label>
-          <label htmlFor="email">
+          <label htmlFor="email" className="d-flex flex-column">
             Email
             <input
               id="email"
@@ -197,7 +197,7 @@ export default function Login() {
               required
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="password" className="d-flex flex-column">
             Password
             <input
               id="password"

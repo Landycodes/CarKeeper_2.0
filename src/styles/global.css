@@ -230,12 +230,13 @@ input::-webkit-inner-spin-button {
 
 
 
-@media  (min-width: 260px) and (max-width: 400px){
+@media  (min-width: 260px) and (max-width: 500px){
     .logout {
         font-size: small;
         width: 75px;
         height: auto;
     }
+
     .menu {
         width: 70px;
         height: auto;
