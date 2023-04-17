@@ -34,6 +34,9 @@ li:last-child {
 select {
 cursor: pointer;
 }
+.select {
+    cursor: pointer;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -184,27 +187,27 @@ input::-webkit-inner-spin-button {
 }
 .slider {
     position: absolute;
-    height: 40px;
-    width: 80px;
+    height: 38px;
+    width: 70px;
     background-color: white;
     border: 2px solid darkred;
-    border-radius: 15px;
+    border-radius: 10px;
     margin: 0;
     transition: transform 0.5s ease-in-out;
 }
 .slide-right {
-    transform: translateX(143px);
+    transform: translateX(152px);
 }
 .slide-left {
     transform: translateX(0px);
 }
 #tread {
-    z-index: 1;
-    cursor: pointer;
+    margin: 0;
+    margin-left: 5px;
 }
 #brake {
-    z-index: 1;
-    cursor: pointer;
+    margin: 0;
+    margin-right: 5px;
 }
 /* image set in a div to contain value inputs */
 #status-container {

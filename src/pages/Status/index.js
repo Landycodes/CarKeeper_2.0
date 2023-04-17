@@ -1,116 +1,128 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Layout from "..";
 
 export default function Status() {
+  const [toggle, setToggle] = useState(true);
+
   return (
     <Layout>
       <Nav title="Part Status" />
-      <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+      <div className="w-100 d-flex flex-column justify-content-center align-items-center">
         <label
           id="t-bar"
-          class="position-relative text-white d-flex justify-content-between align-items-center m-0 pt-1 pb-1"
-          for="toggle"
+          className="d-flex justify-content-between align-items-center m-0 p-0"
+          htmlFor="toggle"
         >
-          <h4 id="tread" class="m-0 ml-2">
+          <h4 id="tread" className="p-1">
             Tread
           </h4>
-          <h4 id="brake" class="m-0 mr-2">
+          <h4 id="brake" className="p-1">
             Brake
           </h4>
-          <span class="slider"></span>
+          <span
+            className={`slider select ${toggle ? "slide-left" : "slide-right"}`}
+          ></span>
         </label>
-        <input id="toggle" type="checkbox" class="d-none" />
+
+        <input
+          id="toggle"
+          type="checkbox"
+          className="d-none"
+          onClick={() => {
+            setToggle(!toggle);
+          }}
+        />
         <div
           id="status-container"
-          class="text-white text-center d-flex flex-column justify-content-around"
+          className="text-white text-center d-flex flex-column justify-content-around"
         >
-          <div class="w-100 h-25 mt-2 d-flex justify-content-between">
-            <div class="w-25">
+          <div className="w-100 h-25 mt-2 d-flex justify-content-between">
+            <div className="w-25">
               <label>
-                <h1 class="p-2">FL</h1>
+                <h1 className="p-2">FL</h1>
               </label>
               <h5>
                 <span id="FL"></span>
                 <br />
-                <small class="measurement"></small>
+                <small className="measurement"></small>
               </h5>
-              <div id="FL-tread" class="d-flex">
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
+              <div id="FL-tread" className="d-flex">
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
               </div>
-              <div id="FL-brake" class="d-flex w-100">
-                <input class="mb-1 w-50 rounded brake-val" />
-                <input class="mb-1 w-50 rounded brake-val" />
+              <div id="FL-brake" className="d-flex w-100">
+                <input className="mb-1 w-50 rounded brake-val" />
+                <input className="mb-1 w-50 rounded brake-val" />
               </div>
             </div>
-            <div class="w-25">
+            <div className="w-25">
               <label>
-                <h1 class="p-2">FR</h1>
+                <h1 className="p-2">FR</h1>
               </label>
               <h5>
                 <span id="FR"></span>
                 <br />
-                <small class="measurement"></small>
+                <small className="measurement"></small>
               </h5>
-              <div id="FR-tread" class="d-flex">
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
+              <div id="FR-tread" className="d-flex">
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
               </div>
-              <div id="FR-brake" class="d-flex w-100">
-                <input class="mb-1 w-50 rounded brake-val" />
-                <input class="mb-1 w-50 rounded brake-val" />
+              <div id="FR-brake" className="d-flex w-100">
+                <input className="mb-1 w-50 rounded brake-val" />
+                <input className="mb-1 w-50 rounded brake-val" />
               </div>
             </div>
           </div>
-          <div class="m-0 w-100 h-25 d-flex align-items-center justify-content-center">
-            <button id="edit-stat" class="btn enter text-white">
+          <div className="m-0 w-100 h-25 d-flex align-items-center justify-content-center">
+            <button id="edit-stat" className="enter text-white">
               Edit
             </button>
           </div>
-          <div class="w-100 h-25 mb-2 d-flex justify-content-between align-items-end">
-            <div class="w-25">
-              <div id="BL-brake" class="d-flex w-100">
-                <input class="mb-1 w-50 rounded brake-val" />
-                <input class="mb-1 w-50 rounded brake-val" />
+          <div className="w-100 h-25 mb-2 d-flex justify-content-between align-items-end">
+            <div className="w-25">
+              <div id="BL-brake" className="d-flex w-100">
+                <input className="mb-1 w-50 rounded brake-val" />
+                <input className="mb-1 w-50 rounded brake-val" />
               </div>
-              <div id="BL-tread" class="d-flex">
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
+              <div id="BL-tread" className="d-flex">
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
               </div>
               <h5>
                 <span id="BL"></span>
                 <br />
-                <small class="measurement"></small>
+                <small className="measurement"></small>
               </h5>
-              <label class="mt-1">
-                <h1 class="p-2">BL</h1>
+              <label className="mt-1">
+                <h1 className="p-2">BL</h1>
               </label>
             </div>
-            <div class="w-25">
-              <div id="BR-brake" class="d-flex w-100">
-                <input class="mb-1 w-50 rounded brake-val" />
-                <input class="mb-1 w-50 rounded brake-val" />
+            <div className="w-25">
+              <div id="BR-brake" className="d-flex w-100">
+                <input className="mb-1 w-50 rounded brake-val" />
+                <input className="mb-1 w-50 rounded brake-val" />
               </div>
-              <div id="BR-tread" class="d-flex">
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
-                <input class="p-1 mb-1 w-25 rounded tread-val" />
+              <div id="BR-tread" className="d-flex">
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
+                <input className="p-1 mb-1 w-25 rounded tread-val" />
               </div>{" "}
               <h5>
                 <span id="BR"></span>
                 <br />
-                <small class="measurement"></small>
+                <small className="measurement"></small>
               </h5>
-              <label class="mt-1">
-                <h1 class="p-2">BR</h1>
+              <label className="mt-1">
+                <h1 className="p-2">BR</h1>
               </label>
             </div>
           </div>

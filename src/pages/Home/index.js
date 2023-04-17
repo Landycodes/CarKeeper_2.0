@@ -217,13 +217,13 @@ export default function Home() {
               </label>
               <label
                 htmlFor="miles"
-                className="text-center font-weight-bold p-1 mb-2 w-100"
+                className="d-flex flex-column align-items-center font-weight-bold p-1 mb-2 w-100"
               >
                 Current Mileage
                 <input
                   type="number"
                   id="miles"
-                  className="d-flex flex-column align-items-center shadow border-0 rounded"
+                  className="shadow border-0 rounded"
                 />
               </label>
               <button
