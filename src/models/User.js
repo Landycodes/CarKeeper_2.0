@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import intervalSchema from "./interval";
 import maintSchema from "./maint";
 import specSchema from "./spec";
+import statSchema from "./status";
 
 // const { Schema, model } = require("mongoose");
 // const intervalSchema = require("./interval");
@@ -35,7 +36,9 @@ const userSchema = new Schema({
   specifications: {
     type: specSchema,
   },
-  status: [],
+  status: {
+    type: statSchema
+  },
 });
 
 // hash user password

@@ -4,13 +4,14 @@
 
 html {
     box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.35);
-    height: 120vh;
+    height: auto;
     min-height: 100%;
 }
 
 body {
     background-image: url('../../public/background.png');
 }
+
 
 nav {
     background-color: var(--blk);
@@ -125,7 +126,7 @@ input::-webkit-inner-spin-button {
 #modal {
     /* display: none; */
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     padding-top: 100px;
     left: 0;
     top: 0;
@@ -229,6 +230,9 @@ input::-webkit-inner-spin-button {
 }
 #FL-tread, #FR-tread, #BL-tread, #BR-tread {
     width: 120%;
+}
+.front {
+    z-index: 1;
 }
 
 
