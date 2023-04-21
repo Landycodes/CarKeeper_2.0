@@ -1,38 +1,104 @@
 const { Schema } = require("mongoose");
 
-const statSchema = new Schema({
+const brakeSchema = new Schema({
   fl: {
-    brake: {
-      type: [String],
-    },
-    tread: {
-      type: [String],
-    },
+    left: String,
+    right: String,
   },
   fr: {
-    brake: {
-      type: [String],
-    },
-    tread: {
-      type: [String],
-    },
+    left: String,
+    right: String,
   },
   bl: {
-    brake: {
-      type: [String],
-    },
-    tread: {
-      type: [String],
-    },
+    left: String,
+    right: String,
   },
   br: {
-    brake: {
-      type: [String],
-    },
-    tread: {
-      type: [String],
-    },
+    left: String,
+    right: String,
   },
 });
 
-module.exports = statSchema;
+const treadSchema = new Schema({
+  fl: {
+    lOuter: String,
+    lInner: String,
+    rInner: String,
+    rOuter: String,
+  },
+  fr: {
+    lOuter: String,
+    lInner: String,
+    rInner: String,
+    rOuter: String,
+  },
+  bl: {
+    lOuter: String,
+    lInner: String,
+    rInner: String,
+    rOuter: String,
+  },
+  br: {
+    lOuter: String,
+    lInner: String,
+    rInner: String,
+    rOuter: String,
+  },
+});
+
+const statSchema = new Schema({
+  brake: String,
+  tread: String,
+});
+// const statSchema = new Schema({
+//   fl: {
+//     brake: {
+//       left: String,
+//       right: String,
+//     },
+//     tread: {
+//       lOuter: String,
+//       lInner: String,
+//       rInner: String,
+//       rOuter: String,
+//     },
+//   },
+//   fr: {
+//     brake: {
+//       left: String,
+//       right: String,
+//     },
+//     tread: {
+//       lOuter: String,
+//       lInner: String,
+//       rInner: String,
+//       rOuter: String,
+//     },
+//   },
+//   bl: {
+//     brake: {
+//       left: String,
+//       right: String,
+//     },
+//     tread: {
+//       lOuter: String,
+//       lInner: String,
+//       rInner: String,
+//       rOuter: String,
+//     },
+//   },
+//   br: {
+//     brake: {
+//       left: String,
+//       right: String,
+//     },
+//     tread: {
+//       lOuter: String,
+//       lInner: String,
+//       rInner: String,
+//       rOuter: String,
+//     },
+//   },
+// });
+
+module.exports = { brakeSchema, treadSchema };

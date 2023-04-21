@@ -148,7 +148,9 @@ export default function Home() {
         <span className="span" id={maintItems.id}>
           {maintItems.miles ? (
             <span>
-              {nextService.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              <b>
+                {nextService.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </b>
               <small> Miles</small>
             </span>
           ) : (

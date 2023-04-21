@@ -128,6 +128,7 @@ export default function Interval() {
                 const updatedUser = await data.json();
                 // console.log(updatedUser);
                 setButton(false);
+                //MAKE THIS AN ALERT
                 console.log("intervals have been updated!");
 
                 return updatedUser;

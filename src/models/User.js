@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import intervalSchema from "./interval";
 import maintSchema from "./maint";
 import specSchema from "./spec";
-import statSchema from "./status";
+import { brakeSchema, treadSchema } from "./status";
 
 // const { Schema, model } = require("mongoose");
 // const intervalSchema = require("./interval");
@@ -37,7 +37,8 @@ const userSchema = new Schema({
     type: specSchema,
   },
   status: {
-    type: statSchema
+    brake: { type: brakeSchema },
+    tread: { type: treadSchema },
   },
 });
 

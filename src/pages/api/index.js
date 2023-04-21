@@ -59,3 +59,25 @@ export const saveSpecifications = (token, specs) => {
     body: JSON.stringify(specs),
   });
 };
+
+export const saveBrakes = (token, brake) => {
+  return fetch("/api/savebrake", {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(brake),
+  });
+};
+
+export const saveTread = (token, tread) => {
+  return fetch("/api/savetread", {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(tread),
+  });
+};
