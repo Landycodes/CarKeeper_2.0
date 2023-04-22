@@ -15,6 +15,7 @@ export default function Status() {
 
   const [saveEdit, setButton] = useState(false);
 
+  //holds brake input values
   const [brake, setBrake] = useState({
     fl: { left: "", right: "" },
     fr: { left: "", right: "" },
@@ -22,6 +23,7 @@ export default function Status() {
     br: { left: "", right: "" },
   });
 
+  //holds tread input values
   const [tread, setTread] = useState({
     fl: {
       lOuter: "",
@@ -49,20 +51,27 @@ export default function Status() {
     },
   });
 
+  //get and set brake and tread data on page load
   useEffect(() => {
     getData().then((data) => {
-      console.log(data);
+      const { brake: savedBrake, tread: savedTread } = data.status;
+      const setBrakeData = { ...savedBrake };
+      const setTreadData = { ...savedTread };
+      setBrake({ ...setBrakeData });
+      setTread({ ...setTreadData });
+
       isLoading(false);
     });
   }, []);
 
+  //set brake value equal to input value
   const handleBrakeChange = (event, place) => {
     const { name, value } = event.target;
     name === "left" ? (place.left = value) : (place.right = value);
     setBrake({ ...brake, [place]: place.left || place.right });
-    console.log(brake);
   };
 
+  //set tread value equal to input value
   const handleTreadChange = (event, place) => {
     const { name, value } = event.target;
     switch (name) {
@@ -82,9 +91,9 @@ export default function Status() {
       ...tread,
       [place]: place.lOuter || place.lInner || place.rInner || place.rOuter,
     });
-    console.log(tread);
   };
 
+  //save values to database
   const saveInput = async () => {
     if (saveEdit) {
       try {
@@ -98,13 +107,14 @@ export default function Status() {
           : await saveTread(token, tread);
 
         if (!data.ok) {
-          console.log("Couldn't save brakes!");
+          toggle
+            ? console.log("Couldn't save brakes!")
+            : console.log("Couldn't save tread!");
         }
 
         const updatedUser = await data.json();
-        console.log(updatedUser);
         // POSSIBLE ALERT?
-        console.log("Brakes saved!");
+        toggle ? console.log("Brakes saved!") : console.log("Tread saved!");
         return updatedUser;
       } catch (err) {
         console.error(err);
@@ -112,6 +122,7 @@ export default function Status() {
     }
   };
 
+  //displays input fields
   const valueInput = (place) => {
     return toggle ? (
       <div
@@ -134,10 +145,16 @@ export default function Status() {
     );
   };
 
-  const measurements = () => {
+  //displays saved values
+  const measurements = (value) => {
+    console.log(Object.values(value).some((value) => Boolean(value)));
     return (
       <h5 className="m-0 mt-2 mb-2">
-        <span></span>
+        <span>
+          {toggle
+            ? `${value.left}|${value.right}`
+            : `${value.lOuter}|${value.lInner}|${value.rInner}|${value.rOuter}`}
+        </span>
         <br></br>
         <small className="measurement">{toggle ? "MM" : "/32nds"}</small>
       </h5>
@@ -198,7 +215,7 @@ export default function Status() {
                   <h1 className="p-2">FL</h1>
                 </label>
                 <div className="d-flex flex-column align-items-center">
-                  {measurements()}
+                  {toggle ? measurements(brake.fl) : measurements(tread.fl)}
                   {toggle ? valueInput(brake.fl) : valueInput(tread.fl)}
                 </div>
               </div>
@@ -207,7 +224,7 @@ export default function Status() {
                   <h1 className="p-2">FR</h1>
                 </label>
                 <div className="d-flex flex-column align-items-center">
-                  {measurements()}
+                  {toggle ? measurements(brake.fr) : measurements(tread.fr)}
                   {toggle ? valueInput(brake.fr) : valueInput(tread.fr)}
                 </div>
               </div>
@@ -219,6 +236,10 @@ export default function Status() {
                 className="enter text-white"
                 onClick={async () => {
                   await saveInput();
+                  document
+                    .querySelectorAll("input")
+                    .forEach((i) => (i.value = ""));
+
                   setButton(!saveEdit);
                 }}
               >
@@ -229,7 +250,7 @@ export default function Status() {
               <div className="w-25">
                 <div className="d-flex flex-column align-items-center">
                   {toggle ? valueInput(brake.bl) : valueInput(tread.bl)}
-                  {measurements()}
+                  {toggle ? measurements(brake.bl) : measurements(tread.bl)}
                 </div>
                 <label>
                   <h1 className="p-2">BL</h1>
@@ -238,7 +259,7 @@ export default function Status() {
               <div className="w-25">
                 <div className="d-flex flex-column align-items-center">
                   {toggle ? valueInput(brake.br) : valueInput(tread.br)}
-                  {measurements()}
+                  {toggle ? measurements(brake.br) : measurements(tread.br)}
                 </div>
                 <label>
                   <h1 className="p-2">BR</h1>
