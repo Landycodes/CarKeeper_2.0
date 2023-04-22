@@ -6,6 +6,7 @@ import Layout from "..";
 import { useRouter } from "next/router";
 import { signIn, signUp } from "../api/index";
 import Auth from "../../../utils/auth";
+import Alert from "../components/Alert";
 
 export default function Login() {
   //next.js page routing
@@ -14,6 +15,11 @@ export default function Login() {
   const [form, setForm] = useState(true);
 
   const [loading, isLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [alert, setAlert] = useState(false);
+  const disableAlert = (close) => {
+    setAlert(close);
+  };
 
   //sign up form state
   const [signUpData, setsignUpData] = useState({
@@ -68,6 +74,10 @@ export default function Login() {
           email: "",
           password: "",
         });
+      } else {
+        setMsg(entryPlz.ERR);
+        setAlert(true);
+        isLoading(false);
       }
     } catch (err) {
       console.error(err);
@@ -226,6 +236,11 @@ export default function Login() {
             have an account? Login
           </button>
         </form>
+      )}
+      {alert ? (
+        <Alert msg={msg} alert={alert} disableAlert={disableAlert} />
+      ) : (
+        ""
       )}
     </Layout>
   );

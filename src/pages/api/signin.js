@@ -11,15 +11,13 @@ export default async function signin({ body }, res) {
     //find user by email
     const user = await User.findOne({ email: body.email });
     if (!user) {
-      return res
-        .status(400)
-        .json({ ERR: "could not find an account with that email" });
+      return res.status(400).json({ ERR: "Email not found 😔" });
     }
 
     //validate password
     const correctPW = await user.isCorrectPassword(body.password);
     if (!correctPW) {
-      return res.status(400).json({ ERR: "Incorrect password" });
+      return res.status(400).json({ ERR: "Incorrect password 😔" });
     }
 
     //assign token to user

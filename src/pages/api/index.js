@@ -5,6 +5,12 @@ export const signIn = (logInData) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(logInData),
+  }).then((response) => {
+    if (response.status === 400) {
+      return response.json();
+    } else {
+      return response;
+    }
   });
 };
 

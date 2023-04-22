@@ -10,7 +10,7 @@ export default function Alert({ msg, alert, disableAlert }) {
         <span id="close" onClick={alertOff}>
           X
         </span>
-        <h4> {msg}</h4>
+        <h4 className="text-center"> {msg}</h4>
       </div>
     </div>
   );

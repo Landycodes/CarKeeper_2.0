@@ -11,7 +11,7 @@ export default async function newUser(req, res) {
     //create new user and assign a token to user
     const newUser = await User.create(req.body);
     if (!newUser) {
-      res.status(400).json({ ERR: "Could not create account" });
+      res.status(400).json({ ERR: "Somethings wrong 😔" });
     }
     const token = signToken(newUser);
     res.json({ token, newUser });

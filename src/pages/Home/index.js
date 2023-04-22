@@ -7,11 +7,17 @@ import { getData } from "../../../utils/getData";
 
 import Nav from "../components/Nav";
 import Layout from "..";
+import Alert from "../components/Alert";
 
 export default function Home() {
   const [name, setName] = useState("");
 
   const [loading, isLoading] = useState(true);
+  const [alert, setAlert] = useState(false);
+  //function to close alert
+  const disableAlert = (close) => {
+    setAlert(close);
+  };
 
   //useState for intervals
   const [int, setInt] = useState({
@@ -88,11 +94,12 @@ export default function Home() {
         const updatedUser = await data.json();
         // POSSIBLE ALERT?
         console.log("next service saved!");
+        inputBox.value = "";
+
         return updatedUser;
       } catch (err) {
         console.error(err);
       }
-      inputBox.value = "";
     }
   };
 
@@ -103,37 +110,37 @@ export default function Home() {
 
   const maintItems = [
     {
-      name: "Oil Change: ",
+      name: "Oil Change",
       id: "oil",
       miles: mileVal.oilVal,
       interval: int.oilInt,
     },
     {
-      name: "Coolant Flush: ",
+      name: "Coolant Flush",
       id: "cool",
       miles: mileVal.coolVal,
       interval: int.coolInt,
     },
     {
-      name: "Power Steering: ",
+      name: "Power Steering",
       id: "ps",
       miles: mileVal.psVal,
       interval: int.psInt,
     },
     {
-      name: "Brake/Clutch Fluid: ",
+      name: "Brake/Clutch Fluid",
       id: "brake",
       miles: mileVal.brakeVal,
       interval: int.brakeInt,
     },
     {
-      name: "Tire Rotation: ",
+      name: "Tire Rotation",
       id: "tiro",
       miles: mileVal.tiroVal,
       interval: int.tiroInt,
     },
     {
-      name: "Transmission Flush: ",
+      name: "Transmission Flush",
       id: "trans",
       miles: mileVal.transVal,
       interval: int.transInt,
@@ -142,23 +149,25 @@ export default function Home() {
 
   const setList = (maintItems) => {
     const nextService = maintItems.miles + maintItems.interval;
-    return (
-      <li key={maintItems.id}>
-        {maintItems.miles ? maintItems.name : ""}
-        <span className="span" id={maintItems.id}>
-          {maintItems.miles ? (
-            <span>
-              <b>
-                {nextService.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </b>
-              <small> Miles</small>
-            </span>
-          ) : (
-            ""
-          )}
-        </span>
-      </li>
-    );
+    if (maintItems.miles) {
+      return (
+        <li key={maintItems.id}>
+          {`${maintItems.name}: `}
+          <span className="span" id={maintItems.id}>
+            {maintItems.miles ? (
+              <span>
+                <b>
+                  {nextService.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </b>
+                <small> Miles</small>
+              </span>
+            ) : (
+              ""
+            )}
+          </span>
+        </li>
+      );
+    }
   };
 
   return (
@@ -252,11 +261,20 @@ export default function Home() {
                     }
                   });
                   //MAKE THIS AN ALERT
-                  !miles ? console.log("please enter current mileage") : {};
+                  !miles ? setAlert(true) : {};
                 }}
               >
                 Enter
               </button>
+              {alert ? (
+                <Alert
+                  msg={"please enter current mileage!"}
+                  alert={alert}
+                  disableAlert={disableAlert}
+                />
+              ) : (
+                ""
+              )}
             </form>
           </div>
         )}
