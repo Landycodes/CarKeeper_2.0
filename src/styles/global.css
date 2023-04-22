@@ -170,7 +170,8 @@ input::-webkit-inner-spin-button {
     margin: auto;
     padding: 20px;
     border: 2px solid red;
-    width: 335px;
+    min-width: 335px;
+    max-width: fit-content;
     height: auto;
     border-radius: 10px;
     white-space: nowrap;
