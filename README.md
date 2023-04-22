@@ -1,5 +1,9 @@
 # [CarKeeper.com](https://car-keeper-2-0.vercel.app/Home)
 
+<p align="center">
+  <img width="460" height="400" src="https://user-images.githubusercontent.com/103873915/233766869-b47f7f87-9b6d-4bb3-988a-129ee281442f.png">
+</p>
+
 # Maintenace made easy!
 
 This app was built to help your average DIY car mechanic keep track of basic car maintenance intervals. To use the app, you can simply log in or create an account, and then the user will be presented with a maintenance page. From there, all you have to do is enter the service you performed and the current vehicle mileage, and click enter. The dashboard will auto-populate with the mileage at which the service you performed is due next!
