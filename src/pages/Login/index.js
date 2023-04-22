@@ -48,8 +48,6 @@ export default function Login() {
     form
       ? setLogInData({ ...logInData, [name]: value })
       : setsignUpData({ ...signUpData, [name]: value });
-    // console.log(signUpData);
-    // console.log(logInData);
   };
 
   const handleLogin = async (event) => {
@@ -60,8 +58,6 @@ export default function Login() {
     try {
       //send fetch request and retrieve user token to log in
       const entryPlz = await signIn(logInData);
-      // console.log(logInData);
-      // console.log({ token, user });
       if (entryPlz.ok) {
         const { token } = await entryPlz.json();
         Auth.login(token);

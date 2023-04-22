@@ -123,7 +123,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Modal */
-#modal {
+#modal, #alert {
     /* display: none; */
     position: fixed;
     z-index: 10;
@@ -162,6 +162,19 @@ input::-webkit-inner-spin-button {
   color: rgba(253, 0, 0, .8);
   text-decoration: none;
   cursor: pointer;
+}
+
+.custom-alert {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid red;
+    width: 335px;
+    height: auto;
+    border-radius: 10px;
+    white-space: nowrap;
+
 }
 
 /* interval page */

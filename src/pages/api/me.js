@@ -22,7 +22,6 @@ export default async function Me(req, res) {
         .status(400)
         .json({ message: "Cannot find a user with this id!" });
     }
-    // console.log(user);
 
     res.json(user);
   } catch (err) {

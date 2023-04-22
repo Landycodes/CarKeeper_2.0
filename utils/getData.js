@@ -18,7 +18,6 @@ export const getData = async () => {
 
     const user = await data.json();
     return user;
-    // console.log(user);
   } catch (err) {
     console.error(err);
   }

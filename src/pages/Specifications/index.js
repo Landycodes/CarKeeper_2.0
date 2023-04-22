@@ -23,7 +23,6 @@ export default function Specs() {
 
   useEffect(() => {
     getData().then((data) => {
-      console.log(data.specifications);
       if (data.specifications === undefined) {
         setButton(true);
       } else {

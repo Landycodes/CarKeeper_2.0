@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import loadIcon from "../../../public/speedometer.gif";
 import Nav from "../components/Nav";
+import Alert from "../components/Alert";
 import Auth from "../../../utils/auth";
 import Layout from "..";
 
@@ -13,6 +14,11 @@ export default function Interval() {
   const [button, setButton] = useState(false);
 
   const [loading, isLoading] = useState(true);
+  const [alert, setAlert] = useState(false);
+  //function to pass to alert component to close alert
+  const disableAlert = (close) => {
+    setAlert(close);
+  };
 
   //create interval state
   const [intervals, setIntervals] = useState({
@@ -127,10 +133,8 @@ export default function Interval() {
                 }
 
                 const updatedUser = await data.json();
-                // console.log(updatedUser);
                 setButton(false);
-                //MAKE THIS AN ALERT
-                console.log("intervals have been updated!");
+                setAlert(true);
 
                 return updatedUser;
               } catch (err) {
@@ -140,6 +144,15 @@ export default function Interval() {
           >
             Save
           </button>
+          {alert ? (
+            <Alert
+              msg={"intervals have been updated!"}
+              alert={alert}
+              disableAlert={disableAlert}
+            />
+          ) : (
+            ""
+          )}
         </div>
       )}
     </Layout>
