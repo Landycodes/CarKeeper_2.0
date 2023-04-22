@@ -91,11 +91,9 @@ export default function Home() {
           console.log("Couldn't save service!");
         }
 
-        const updatedUser = await data.json();
+        const updatedUser = await data.json().then((inputBox.value = ""));
         // POSSIBLE ALERT?
         console.log("next service saved!");
-        inputBox.value = "";
-
         return updatedUser;
       } catch (err) {
         console.error(err);
