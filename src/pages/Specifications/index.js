@@ -136,6 +136,7 @@ export default function Specs() {
           height={200}
           alt="Loading"
           className="loadIcon"
+          priority={true}
         />
       ) : (
         <form

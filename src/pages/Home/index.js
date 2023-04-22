@@ -173,6 +173,7 @@ export default function Home() {
               height={200}
               alt="Loading"
               className="loadIcon"
+              priority={true}
             />
             <h1 className="text-center">Loading...</h1>
           </div>

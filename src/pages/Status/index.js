@@ -54,11 +54,13 @@ export default function Status() {
   //get and set brake and tread data on page load
   useEffect(() => {
     getData().then((data) => {
-      const { brake: savedBrake, tread: savedTread } = data.status;
-      const setBrakeData = { ...savedBrake };
-      const setTreadData = { ...savedTread };
-      setBrake({ ...setBrakeData });
-      setTread({ ...setTreadData });
+      if (data.status) {
+        const { brake: savedBrake, tread: savedTread } = data.status;
+        const setBrakeData = { ...savedBrake };
+        const setTreadData = { ...savedTread };
+        setBrake({ ...setBrakeData });
+        setTread({ ...setTreadData });
+      }
 
       isLoading(false);
     });
@@ -147,13 +149,15 @@ export default function Status() {
 
   //displays saved values
   const measurements = (value) => {
-    console.log(Object.values(value).some((value) => Boolean(value)));
     return (
       <h5 className="m-0 mt-2 mb-2">
         <span>
           {toggle
-            ? `${value.left}|${value.right}`
-            : `${value.lOuter}|${value.lInner}|${value.rInner}|${value.rOuter}`}
+            ? `${value.left}${value.right ? "|" + value.right : ""}`
+            : `${value.lOuter}${value.lInner ? "|" + value.lInner : ""}${
+                value.rInner ? "|" + value.rInner : ""
+              }${value.rOuter ? "|" + value.rOuter : ""}
+            `}
         </span>
         <br></br>
         <small className="measurement">{toggle ? "MM" : "/32nds"}</small>
@@ -161,6 +165,7 @@ export default function Status() {
     );
   };
 
+  //Page to be rendered
   return (
     <Layout>
       <Nav title="Part Status" />
@@ -172,6 +177,7 @@ export default function Status() {
             height={200}
             alt="Loading"
             className="loadIcon"
+            priority={true}
           />
           <h1 className="text-center">Loading...</h1>
         </div>
