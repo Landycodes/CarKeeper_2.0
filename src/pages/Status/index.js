@@ -55,11 +55,16 @@ export default function Status() {
   useEffect(() => {
     getData().then((data) => {
       if (data.status) {
-        const { brake: savedBrake, tread: savedTread } = data.status;
-        const setBrakeData = { ...savedBrake };
-        const setTreadData = { ...savedTread };
-        setBrake({ ...setBrakeData });
-        setTread({ ...setTreadData });
+        if (data.status.brake) {
+          const { brake: savedBrake } = data.status;
+          const setBrakeData = { ...savedBrake };
+          setBrake({ ...setBrakeData });
+        }
+        if (data.status.tread) {
+          const { tread: savedTread } = data.status;
+          const setTreadData = { ...savedTread };
+          setTread({ ...setTreadData });
+        }
       }
 
       isLoading(false);
@@ -149,7 +154,6 @@ export default function Status() {
 
   //displays saved values
   const measurements = (value) => {
-    console.log(value);
     return (
       <h5 className="m-0 mt-2 mb-2">
         <span>
