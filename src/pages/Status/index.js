@@ -153,11 +153,15 @@ export default function Status() {
       <h5 className="m-0 mt-2 mb-2">
         <span>
           {toggle
-            ? `${value.left}${value.right ? "|" + value.right : ""}`
-            : `${value.lOuter}${value.lInner ? "|" + value.lInner : ""}${
+            ? value.left !== undefined
+              ? `${value.left}${value.right ? "|" + value.right : ""}`
+              : ""
+            : value.lOuter !== undefined
+            ? `${value.lOuter}${value.lInner ? "|" + value.lInner : ""}${
                 value.rInner ? "|" + value.rInner : ""
               }${value.rOuter ? "|" + value.rOuter : ""}
-            `}
+            `
+            : ""}
         </span>
         <br></br>
         <small className="measurement">{toggle ? "MM" : "/32nds"}</small>
