@@ -7,8 +7,11 @@ import { useRouter } from "next/router";
 import { signIn, signUp } from "../api/index";
 import Auth from "../../../utils/auth";
 import Alert from "../components/Alert";
+import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
+import firebase from "../../../utils/firebase";
 
 export default function Login() {
+  const provider = new GoogleAuthProvider();
   //next.js page routing
   const router = useRouter();
   //handles toggle for log in or sign up
@@ -143,7 +146,7 @@ export default function Login() {
                 type="email"
                 onChange={handleInputChange}
                 defaultValue={logInData.email}
-                required
+                // required
               />
             </label>
             <label htmlFor="password" className="d-flex flex-column">
@@ -155,12 +158,12 @@ export default function Login() {
                 type="password"
                 onChange={handleInputChange}
                 defaultValue={logInData.password}
-                required
+                // required
               />
             </label>
             <button className="btn btn-success mt-2 mb-2">Sign In</button>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mb-2"
               onClick={() => {
                 setForm(!form);
                 document
@@ -169,6 +172,23 @@ export default function Login() {
               }}
             >
               Sign up instead
+            </button>
+            <h6 className="text-center text-secondary">- OR -</h6>
+            <button
+              className="btn btn-light mb-2"
+              onClick={() => {
+                const auth = getAuth(firebase);
+                signInWithRedirect(auth, provider);
+              }}
+            >
+              <Image
+                src="/google-logo.png"
+                alt=""
+                height={25}
+                width={25}
+                style={{ marginRight: "10px" }}
+              />
+              Sign in with Google
             </button>
           </form>
         )
