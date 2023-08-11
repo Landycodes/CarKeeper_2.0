@@ -5,11 +5,6 @@ import maintSchema from "./maint";
 import specSchema from "./spec";
 import { brakeSchema, treadSchema } from "./status";
 
-// const { Schema, model } = require("mongoose");
-// const intervalSchema = require("./interval");
-// const maintSchema = require("./maint");
-// const bcrypt = require("bcrypt");
-
 const userSchema = new Schema({
   username: {
     type: String,

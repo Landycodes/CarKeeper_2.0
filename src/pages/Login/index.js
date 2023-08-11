@@ -4,10 +4,16 @@ import loadIcon from "../../../public/speedometer.gif";
 import Nav from "../components/Nav";
 import Layout from "..";
 import { useRouter } from "next/router";
-import { signIn, signUp } from "../api/index";
+import { googleLogin, signIn, signUp } from "../api/index";
 import Auth from "../../../utils/auth";
 import Alert from "../components/Alert";
-import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  getRedirectResult,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 import firebase from "../../../utils/firebase";
 
 export default function Login() {
@@ -61,6 +67,7 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
     isLoading(true);
 
     //../pages/api/signin
@@ -113,6 +120,43 @@ export default function Login() {
       console.error(err);
       isLoading(false);
     }
+  };
+
+  const handleGoogleLogin = async () => {
+    const auth = getAuth(firebase);
+    // await signInWithPopup(auth, provider);
+    signInWithRedirect(auth, provider);
+    console.log("Getting user data...");
+    getRedirectResult(auth).then(async (data) => {
+      const { displayName, email, uid } = data.user;
+      console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
+      const results = {
+        username: displayName,
+        email: email,
+        password: uid,
+      };
+      console.log("Logging in");
+      try {
+        isLoading(true);
+        const googleUser = await googleLogin(results);
+        if (googleUser.ok) {
+          console.log("status 200");
+          const { token } = await googleUser.json();
+          Auth.login(token);
+          router.push("/Home");
+        }
+      } catch (err) {
+        console.error(err);
+        isLoading(false);
+      }
+
+      const UID = "GYVQ5CJAHkQU6hz53HDAANmM7q63";
+      if (data.user.uid.toString() === UID) {
+        console.log("UID Matches!");
+      } else {
+        console.log("UIDs dont match :(");
+      }
+    });
   };
 
   return (
@@ -176,10 +220,8 @@ export default function Login() {
             <h6 className="text-center text-secondary">- OR -</h6>
             <button
               className="btn btn-light mb-2"
-              onClick={() => {
-                const auth = getAuth(firebase);
-                signInWithRedirect(auth, provider);
-              }}
+              type="button"
+              onClick={handleGoogleLogin}
             >
               <Image
                 src="/google-logo.png"

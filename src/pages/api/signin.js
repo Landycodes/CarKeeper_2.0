@@ -22,7 +22,7 @@ export default async function signin({ body }, res) {
 
     //assign token to user
     const token = signToken(user);
-    res.json({ token, user });
+   return res.json({ token, user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });
