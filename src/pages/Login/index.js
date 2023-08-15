@@ -17,13 +17,16 @@ import {
 import firebase from "../../../utils/firebase";
 
 export default function Login() {
+  //Provider and authentication for firebase
   const provider = new GoogleAuthProvider();
+  const fireAuth = getAuth(firebase);
+
   //next.js page routing
   const router = useRouter();
   //handles toggle for log in or sign up
   const [form, setForm] = useState(true);
 
-  const [loading, isLoading] = useState(false);
+  const [loading, isLoading] = useState(true);
   const [msg, setMsg] = useState("");
   const [alert, setAlert] = useState(false);
   const disableAlert = (close) => {
@@ -57,6 +60,49 @@ export default function Login() {
     });
   }, [form]);
 
+  // useEffect(() => {
+  //   console.log(loading);
+  // }, [loading]);
+
+  //Get results from Google redirect sign in
+  useEffect(() => {
+    console.log("checking google credentials");
+    getRedirectResult(fireAuth).then(async (data) => {
+      // console.log(data);
+      if (data) {
+        // console.log(data._tokenResponse.idToken);
+        const idToken = data._tokenResponse.idToken;
+        const { displayName, email, uid } = data.user;
+        console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
+        const results = {
+          user: {
+            username: displayName,
+            email: email,
+            uid: uid,
+          },
+          idToken: idToken,
+        };
+        console.log("Logging in");
+        try {
+          const googleUser = await googleLogin(results);
+          if (googleUser.ok) {
+            console.log("status 200");
+            const { token } = await googleUser.json();
+            Auth.login(token);
+            router.push("/Home");
+          }
+        } catch (err) {
+          console.error(err);
+          isLoading(false);
+        }
+        isLoading(true);
+      } else if (!data) {
+        // console.log("hello, is it me your looking for?");
+        isLoading(false);
+      }
+    });
+  }, []);
+
   //set state to input value
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -69,7 +115,6 @@ export default function Login() {
     event.preventDefault();
 
     isLoading(true);
-
     //../pages/api/signin
     try {
       //send fetch request and retrieve user token to log in
@@ -85,7 +130,8 @@ export default function Login() {
           password: "",
         });
       } else {
-        setMsg(entryPlz.ERR);
+        const loginError = await entryPlz.json();
+        setMsg(loginError.ERR);
         setAlert(true);
         isLoading(false);
       }
@@ -120,43 +166,6 @@ export default function Login() {
       console.error(err);
       isLoading(false);
     }
-  };
-
-  const handleGoogleLogin = async () => {
-    const auth = getAuth(firebase);
-    // await signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider);
-    console.log("Getting user data...");
-    getRedirectResult(auth).then(async (data) => {
-      const { displayName, email, uid } = data.user;
-      console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
-      const results = {
-        username: displayName,
-        email: email,
-        password: uid,
-      };
-      console.log("Logging in");
-      try {
-        isLoading(true);
-        const googleUser = await googleLogin(results);
-        if (googleUser.ok) {
-          console.log("status 200");
-          const { token } = await googleUser.json();
-          Auth.login(token);
-          router.push("/Home");
-        }
-      } catch (err) {
-        console.error(err);
-        isLoading(false);
-      }
-
-      const UID = "GYVQ5CJAHkQU6hz53HDAANmM7q63";
-      if (data.user.uid.toString() === UID) {
-        console.log("UID Matches!");
-      } else {
-        console.log("UIDs dont match :(");
-      }
-    });
   };
 
   return (
@@ -221,7 +230,9 @@ export default function Login() {
             <button
               className="btn btn-light mb-2"
               type="button"
-              onClick={handleGoogleLogin}
+              onClick={async () => {
+                await signInWithRedirect(fireAuth, provider);
+              }}
             >
               <Image
                 src="/google-logo.png"

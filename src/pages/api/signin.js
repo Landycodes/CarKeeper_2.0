@@ -15,16 +15,20 @@ export default async function signin({ body }, res) {
     }
 
     //validate password
-    const correctPW = await user.isCorrectPassword(body.password);
-    if (!correctPW) {
-      return res.status(400).json({ ERR: "Incorrect password 😔" });
+    if (user.password) {
+      const correctPW = await user.isCorrectPassword(body.password);
+      if (!correctPW) {
+        return res.status(400).json({ ERR: "Incorrect password 😔" });
+      }
+    } else {
+      return res.status(400).json({ ERR: "Try signing in another way" });
     }
 
     //assign token to user
     const token = signToken(user);
-   return res.json({ token, user });
+    return res.json({ token, user });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: err });
+    res.status(500).json({ error: err, ERR: "somting wronk " });
   }
 }
