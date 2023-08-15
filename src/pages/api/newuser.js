@@ -20,8 +20,10 @@ export default async function newUser(req, res) {
     const token = signToken(newUser);
     return res.json({ token, newUser });
   } catch (err) {
-    if (err.code === 1100) {
+    if (err.code === 11000) {
+      console.log(err.message);
       res.status(409).json({ ERR: "Email already exists!" });
+      return;
     }
     console.log(err.message);
     res.status(500).json(err.message);

@@ -161,6 +161,11 @@ export default function Login() {
           email: "",
           password: "",
         });
+      } else {
+        const loginError = await newUser.json();
+        setMsg(loginError.ERR);
+        setAlert(true);
+        isLoading(false);
       }
     } catch (err) {
       console.error(err);

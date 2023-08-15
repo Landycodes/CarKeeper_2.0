@@ -1,13 +1,22 @@
 import connectMongo from "../../../utils/connectDB";
 import User from "@/models/User";
 const { signToken } = require("../../../utils/token");
-import { auth } from "firebase-admin";
+import { auth, apps } from "firebase-admin";
+import { applicationDefault, initializeApp } from "firebase-admin/app";
 
 export default async function loginwithgoogle({ body }, res) {
   try {
     console.log("Connecting to database");
     await connectMongo();
     console.log("Database connected!");
+
+    //initialize firebase if it doesnt already exist
+    if (!apps.length) {
+      initializeApp({
+        credential: applicationDefault(),
+        projectId: "carkeeper-auth-6ab78",
+      });
+    }
 
     console.log("Authenticating idToken");
     const verifiedIdToken = await auth().verifyIdToken(body.idToken);

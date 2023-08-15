@@ -70,3 +70,5 @@ try {
 }
 
 export default User;
+
+//USERNAME SCHEMA STILL SAYING UNIQUE: TRUE AND IT SHOULDNT
