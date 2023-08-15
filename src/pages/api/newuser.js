@@ -12,7 +12,7 @@ export default async function newUser(req, res) {
 
     //create new user and assign a token to user
     const newUser = await User.create(req.body);
-    console.log(newUser);
+    // console.log(newUser);
     if (!newUser) {
       return res.status(400).json({ ERR: "Somethings wrong 😔" });
     }
