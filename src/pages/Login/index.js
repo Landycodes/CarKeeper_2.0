@@ -66,50 +66,87 @@ export default function Login() {
 
   //Get results from Google redirect sign in
   useEffect(() => {
+    isLoading(false);
     console.log("checking google credentials");
-    try {
-      getRedirectResult(fireAuth).then(async (data) => {
-        // console.log(data);
-        if (data) {
-          // console.log(data._tokenResponse.idToken);
-          const idToken = data._tokenResponse.idToken;
-          const { displayName, email, uid } = data.user;
-          console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
-          const results = {
-            user: {
-              username: displayName,
-              email: email,
-              uid: uid,
-            },
-            idToken: idToken,
-          };
-          console.log("Logging in");
-          try {
-            const googleUser = await googleLogin(results);
-            if (googleUser.ok) {
-              console.log("status 200");
-              const { token } = await googleUser.json();
-              Auth.login(token);
-              router.push("/Home");
-            }
-          } catch (err) {
-            console.error(err);
-            isLoading(false);
-          }
-          isLoading(true);
-        } else if (!data) {
-          // console.log("hello, is it me your looking for?");
-          setTimeout(() => {
-            isLoading(false);
-          }, 1000);
-        }
-      });
-    } catch (err) {
-      isLoading(false);
-      console.log("getRedirectResult: something went wrong :(");
-      console.log(err);
-    }
+    checkGoogleCredentials();
   }, []);
+
+  //Check google credentials
+  const checkGoogleCredentials = async () => {
+    const getResults = await getRedirectResult(fireAuth);
+    if (getResults) {
+      console.log("Credentials found!");
+      const idToken = getResults._tokenResponse.idToken;
+      const { displayName, email, uid } = getResults.user;
+      console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
+      console.log(idToken);
+      const results = {
+        user: {
+          username: displayName,
+          email: email,
+          uid: uid,
+        },
+        idToken: idToken,
+      };
+      try {
+        const googleUser = await googleLogin(results);
+        if (googleUser.ok) {
+          console.log("Logging in");
+          const { token } = await googleUser.json();
+          Auth.login(token);
+          router.push("/Home");
+        }
+      } catch (err) {
+        console.error(err);
+        isLoading(false);
+      }
+    } else if (!getResults) {
+      console.log("Credentials not found");
+      isLoading(false);
+    }
+    // try {
+    //   getRedirectResult(fireAuth).then(async (data) => {
+    //     // console.log(data);
+    //     if (data) {
+    //       // console.log(data._tokenResponse.idToken);
+    //       const idToken = data._tokenResponse.idToken;
+    //       const { displayName, email, uid } = data.user;
+    //       console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
+    //       const results = {
+    //         user: {
+    //           username: displayName,
+    //           email: email,
+    //           uid: uid,
+    //         },
+    //         idToken: idToken,
+    //       };
+    //       console.log("Logging in");
+    //       try {
+    //         const googleUser = await googleLogin(results);
+    //         if (googleUser.ok) {
+    //           console.log("status 200");
+    //           const { token } = await googleUser.json();
+    //           Auth.login(token);
+    //           router.push("/Home");
+    //         }
+    //       } catch (err) {
+    //         console.error(err);
+    //         isLoading(false);
+    //       }
+    //       isLoading(true);
+    //     } else if (!data) {
+    //       // console.log("hello, is it me your looking for?");
+    //       setTimeout(() => {
+    //         isLoading(false);
+    //       }, 1000);
+    //     }
+    //   });
+    // } catch (err) {
+    //   isLoading(false);
+    //   console.log("getRedirectResult: something went wrong :(");
+    //   console.log(err);
+    // }
+  };
 
   //set state to input value
   const handleInputChange = (event) => {
