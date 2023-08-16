@@ -67,40 +67,48 @@ export default function Login() {
   //Get results from Google redirect sign in
   useEffect(() => {
     console.log("checking google credentials");
-    getRedirectResult(fireAuth).then(async (data) => {
-      // console.log(data);
-      if (data) {
-        // console.log(data._tokenResponse.idToken);
-        const idToken = data._tokenResponse.idToken;
-        const { displayName, email, uid } = data.user;
-        console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
-        const results = {
-          user: {
-            username: displayName,
-            email: email,
-            uid: uid,
-          },
-          idToken: idToken,
-        };
-        console.log("Logging in");
-        try {
-          const googleUser = await googleLogin(results);
-          if (googleUser.ok) {
-            console.log("status 200");
-            const { token } = await googleUser.json();
-            Auth.login(token);
-            router.push("/Home");
+    try {
+      getRedirectResult(fireAuth).then(async (data) => {
+        // console.log(data);
+        if (data) {
+          // console.log(data._tokenResponse.idToken);
+          const idToken = data._tokenResponse.idToken;
+          const { displayName, email, uid } = data.user;
+          console.log(`Name: ${displayName}, \nemail: ${email}, \nUID: ${uid}`);
+          const results = {
+            user: {
+              username: displayName,
+              email: email,
+              uid: uid,
+            },
+            idToken: idToken,
+          };
+          console.log("Logging in");
+          try {
+            const googleUser = await googleLogin(results);
+            if (googleUser.ok) {
+              console.log("status 200");
+              const { token } = await googleUser.json();
+              Auth.login(token);
+              router.push("/Home");
+            }
+          } catch (err) {
+            console.error(err);
+            isLoading(false);
           }
-        } catch (err) {
-          console.error(err);
-          isLoading(false);
+          isLoading(true);
+        } else if (!data) {
+          // console.log("hello, is it me your looking for?");
+          setTimeout(() => {
+            isLoading(false);
+          }, 1000);
         }
-        isLoading(true);
-      } else if (!data) {
-        // console.log("hello, is it me your looking for?");
-        isLoading(false);
-      }
-    });
+      });
+    } catch (err) {
+      isLoading(false);
+      console.log("getRedirectResult: something went wrong :(");
+      console.log(err);
+    }
   }, []);
 
   //set state to input value
