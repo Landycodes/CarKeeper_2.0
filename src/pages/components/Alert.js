@@ -7,10 +7,16 @@ export default function Alert({ msg, alert, disableAlert }) {
   return (
     <div id="alert">
       <div className="custom-alert">
-        <span id="close" onClick={alertOff}>
-          X
-        </span>
-        <h4 className="text-center p-1"> {msg}</h4>
+        <h4 className="text-center p-1 pb-3"> {msg}</h4>
+
+        <button
+          type="button"
+          // id="close"
+          className="btn btn-danger w-25"
+          onClick={alertOff}
+        >
+          OK
+        </button>
       </div>
     </div>
   );
