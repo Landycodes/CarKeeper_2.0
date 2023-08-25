@@ -101,7 +101,7 @@ export default function Login() {
       }
     } else if (!getResults) {
       console.log("Credentials not found");
-      console.log(getResults);
+      console.log(window.navigator.userAgent);
       isLoading(false);
     }
   };
