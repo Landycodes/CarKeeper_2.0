@@ -72,8 +72,14 @@ export default function Login() {
   }, []);
 
   //Check google credentials
-  const checkGoogleCredentials = async () => {
-    const getResults = await getRedirectResult(fireAuth);
+  //Pass user in if using signinwithpopup method
+  const checkGoogleCredentials = async (user) => {
+    console.log(user);
+    let getResults;
+    user
+      ? ((getResults = user), isLoading(true))
+      : (getResults = await getRedirectResult(fireAuth));
+    // const getResults = await getRedirectResult(fireAuth);
     if (getResults) {
       console.log("Credentials found!");
       const idToken = getResults._tokenResponse.idToken;
@@ -239,7 +245,23 @@ export default function Login() {
               className="btn btn-light mb-2"
               type="button"
               onClick={async () => {
-                await signInWithRedirect(fireAuth, provider);
+                if (window.navigator.userAgent.includes("iPhone OS 16")) {
+                  console.log("this is an iphone using ios 16");
+                  console.log(window.navigator.userAgent);
+                  // try {
+                  //   await signInWithPopup(fireAuth, provider).then((user) => {
+                  //     checkGoogleCredentials(user);
+                  //   });
+                  // } catch (error) {
+                  //   console.log(error);
+                  // }
+                  // } else {
+                  //   try {
+                  //     await signInWithRedirect(fireAuth, provider);
+                  //   } catch (error) {
+                  //     console.log(error);
+                  //   }
+                }
               }}
             >
               <Image
