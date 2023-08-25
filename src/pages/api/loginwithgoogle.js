@@ -20,7 +20,7 @@ export default async function loginwithgoogle({ body }, res) {
 
     console.log("Authenticating idToken");
     const verifiedIdToken = await auth().verifyIdToken(body.idToken);
-    console.log(verifiedIdToken);
+    // console.log(verifiedIdToken);
 
     if (verifiedIdToken) {
       // find user by email

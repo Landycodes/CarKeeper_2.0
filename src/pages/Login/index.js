@@ -60,10 +60,6 @@ export default function Login() {
     });
   }, [form]);
 
-  // useEffect(() => {
-  //   console.log(loading);
-  // }, [loading]);
-
   //Get results from Google redirect sign in
   useEffect(() => {
     console.log("checking google credentials");
@@ -74,7 +70,6 @@ export default function Login() {
   //Check google credentials
   //Pass user in if using signinwithpopup method
   const checkGoogleCredentials = async (user) => {
-    console.log(user);
     let getResults;
     user
       ? ((getResults = user), isLoading(true))
@@ -92,7 +87,7 @@ export default function Login() {
         },
         idToken: idToken,
       };
-      console.log(results);
+      // console.log(results);
       try {
         const googleUser = await googleLogin(results);
         if (googleUser.ok) {
@@ -107,7 +102,7 @@ export default function Login() {
       }
     } else if (!getResults) {
       console.log("Credentials not found");
-      console.log(window.navigator.userAgent);
+      // console.log(window.navigator.userAgent);
       isLoading(false);
     }
   };
@@ -247,7 +242,7 @@ export default function Login() {
               onClick={async () => {
                 if (window.navigator.userAgent.includes("iPhone OS 16")) {
                   console.log("this is an iphone using ios 16");
-                  console.log(window.navigator.userAgent);
+                  // console.log(window.navigator.userAgent);
                   try {
                     await signInWithPopup(fireAuth, provider).then((user) => {
                       checkGoogleCredentials(user);
