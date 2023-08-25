@@ -248,19 +248,19 @@ export default function Login() {
                 if (window.navigator.userAgent.includes("iPhone OS 16")) {
                   console.log("this is an iphone using ios 16");
                   console.log(window.navigator.userAgent);
-                  // try {
-                  //   await signInWithPopup(fireAuth, provider).then((user) => {
-                  //     checkGoogleCredentials(user);
-                  //   });
-                  // } catch (error) {
-                  //   console.log(error);
-                  // }
-                  // } else {
-                  //   try {
-                  //     await signInWithRedirect(fireAuth, provider);
-                  //   } catch (error) {
-                  //     console.log(error);
-                  //   }
+                  try {
+                    await signInWithPopup(fireAuth, provider).then((user) => {
+                      checkGoogleCredentials(user);
+                    });
+                  } catch (error) {
+                    console.log(error);
+                  }
+                } else {
+                  try {
+                    await signInWithRedirect(fireAuth, provider);
+                  } catch (error) {
+                    console.log(error);
+                  }
                 }
               }}
             >
