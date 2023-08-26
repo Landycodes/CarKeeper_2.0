@@ -5,16 +5,10 @@ import maintSchema from "./maint";
 import specSchema from "./spec";
 import { brakeSchema, treadSchema } from "./status";
 
-// const { Schema, model } = require("mongoose");
-// const intervalSchema = require("./interval");
-// const maintSchema = require("./maint");
-// const bcrypt = require("bcrypt");
-
 const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -24,7 +18,11 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+  },
+  uid: {
+    type: String,
+    unique: true,
+    sparse: true,
   },
   maintenance: {
     type: maintSchema,
@@ -44,7 +42,7 @@ const userSchema = new Schema({
 
 // hash user password
 userSchema.pre("save", async function (next) {
-  if (this.isNew || this.isModified("password")) {
+  if ((this.isNew && this.password) || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -56,6 +54,11 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+//check for password or uid
+userSchema.path("uid").validate(function (uid) {
+  return uid || this.password;
+});
 
 //logic to prevent multiple models
 let User;

@@ -5,13 +5,14 @@ export const signIn = (logInData) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(logInData),
-  }).then((response) => {
-    if (response.status === 400) {
-      return response.json();
-    } else {
-      return response;
-    }
   });
+  // .then((response) => {
+  //   if (response.status === 400) {
+  //     return response.json();
+  //   } else {
+  //     return response;
+  //   }
+  // });
 };
 
 export const signUp = (signUpData) => {
@@ -21,6 +22,22 @@ export const signUp = (signUpData) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(signUpData),
+  });
+};
+
+export const googleLogin = (results) => {
+  return fetch("/api/loginwithgoogle", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(results),
+  }).then((response) => {
+    if (response.status === 400) {
+      return response.json();
+    } else {
+      return response;
+    }
   });
 };
 
